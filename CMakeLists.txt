@@ -43,7 +43,7 @@ add_library(romea_imu
 
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(tag ${catkin_LIBRARIES})
+target_link_libraries(romea_imu ${catkin_LIBRARIES})
 
 
 #############
