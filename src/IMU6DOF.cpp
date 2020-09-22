@@ -155,9 +155,9 @@ bool IMU6DOF::isAccelerationOutOfRange(const AccelerationsFrame & accelerationFr
 //--------------------------------------------------------------------
 bool IMU6DOF::isAngularSpeedsOutOfRange(const AngularSpeedsFrame & angularSpeedFrame) const
 {
-  return std::abs(angularSpeedFrame.angularSpeedAlongXAxis)>angularSpeedRange_||
-      std::abs(angularSpeedFrame.angularSpeedAlongYAxis)>angularSpeedRange_ ||
-      std::abs(angularSpeedFrame.angularSpeedAlongZAxis)>angularSpeedRange_;
+  return std::abs(angularSpeedFrame.angularSpeedAroundXAxis)>angularSpeedRange_||
+      std::abs(angularSpeedFrame.angularSpeedAroundYAxis)>angularSpeedRange_ ||
+      std::abs(angularSpeedFrame.angularSpeedAroundZAxis)>angularSpeedRange_;
 }
 
 //--------------------------------------------------------------------
@@ -168,9 +168,9 @@ bool IMU6DOF::isZeroVelocity(const AccelerationsFrame & accelerationFrame,
   return zeroVelocityEstimator_.update(accelerationFrame.accelerationAlongXAxis,
                                        accelerationFrame.accelerationAlongYAxis,
                                        accelerationFrame.accelerationAlongZAxis,
-                                       angularSpeedFrame.angularSpeedAlongXAxis,
-                                       angularSpeedFrame.angularSpeedAlongYAxis,
-                                       angularSpeedFrame.angularSpeedAlongZAxis);
+                                       angularSpeedFrame.angularSpeedAroundXAxis,
+                                       angularSpeedFrame.angularSpeedAroundYAxis,
+                                       angularSpeedFrame.angularSpeedAroundZAxis);
 
 }
 

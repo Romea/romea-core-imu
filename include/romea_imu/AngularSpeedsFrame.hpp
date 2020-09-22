@@ -12,9 +12,9 @@ struct AngularSpeedsFrame
 
   using Ptr=std::shared_ptr<AngularSpeedsFrame> ;
 
-  double angularSpeedAlongXAxis;
-  double angularSpeedAlongYAxis;
-  double angularSpeedAlongZAxis;
+  double angularSpeedAroundXAxis;
+  double angularSpeedAroundYAxis;
+  double angularSpeedAroundZAxis;
 };
 
 }
