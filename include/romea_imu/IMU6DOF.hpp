@@ -4,7 +4,6 @@
 //romea
 #include "AccelerationsFrame.hpp"
 #include "AngularSpeedsFrame.hpp"
-#include "algorithms/ZeroVelocityEstimator.hpp"
 
 //eigen
 #include <Eigen/Eigen>
@@ -37,13 +36,6 @@ public:
                                               const double & angularSpeedAroundYAxis,
                                               const double & angularSpeedAroundZAxis);
 
-  bool isAccelerationOutOfRange(const AccelerationsFrame & accelerationFrame) const;
-
-  bool isAngularSpeedsOutOfRange(const AngularSpeedsFrame & angularSpeedFrame) const;
-
-  bool isZeroVelocity(const AccelerationsFrame & accelerationFrame,
-                      const AngularSpeedsFrame & angularSpeedFrame);
-
 public :
 
   const double & getRate() const;
@@ -63,9 +55,6 @@ public :
   void setBodyPose(const Eigen::Affine3d & rigidTransformation);
   const Eigen::Affine3d & getBodyPose()const;
 
-  double getEstimatedAccelerationStd()const;
-  double getEstimatedAngularSpeedStd()const;
-
 protected :
 
   double rate_;
@@ -80,7 +69,6 @@ protected :
 
   Eigen::Affine3d rigidTransformation_;
 
-  ZeroVelocityEstimator zeroVelocityEstimator_;
 };
 
 }

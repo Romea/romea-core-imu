@@ -20,8 +20,7 @@ IMU6DOF::IMU6DOF(const double & rate,
   angularSpeedNoiseDensity_(angularSpeedNoiseDensity),
   angularSpeedBiasStatibilityStd_(angularSpeedBiasStatibilityStd),
   angularSpeedRange_(angularSpeedRange),
-  rigidTransformation_(Eigen::Affine3d::Identity()),
-  zeroVelocityEstimator_(rate_,getAccelerationStd(),getAngularSpeedStd())
+  rigidTransformation_(Eigen::Affine3d::Identity())
 {
 
 
@@ -141,49 +140,6 @@ void IMU6DOF::setBodyPose(const Eigen::Affine3d & rigidTransformation)
 const Eigen::Affine3d & IMU6DOF::getBodyPose()const
 {
   return rigidTransformation_;
-}
-
-
-//--------------------------------------------------------------------
-bool IMU6DOF::isAccelerationOutOfRange(const AccelerationsFrame & accelerationFrame) const
-{
-  return std::abs(accelerationFrame.accelerationAlongXAxis)>accelerationRange_||
-      std::abs(accelerationFrame.accelerationAlongYAxis)>accelerationRange_ ||
-      std::abs(accelerationFrame.accelerationAlongZAxis)>accelerationRange_;
-}
-
-//--------------------------------------------------------------------
-bool IMU6DOF::isAngularSpeedsOutOfRange(const AngularSpeedsFrame & angularSpeedFrame) const
-{
-  return std::abs(angularSpeedFrame.angularSpeedAroundXAxis)>angularSpeedRange_||
-      std::abs(angularSpeedFrame.angularSpeedAroundYAxis)>angularSpeedRange_ ||
-      std::abs(angularSpeedFrame.angularSpeedAroundZAxis)>angularSpeedRange_;
-}
-
-//--------------------------------------------------------------------
-bool IMU6DOF::isZeroVelocity(const AccelerationsFrame & accelerationFrame,
-                             const AngularSpeedsFrame & angularSpeedFrame)
-{
-
-  return zeroVelocityEstimator_.update(accelerationFrame.accelerationAlongXAxis,
-                                       accelerationFrame.accelerationAlongYAxis,
-                                       accelerationFrame.accelerationAlongZAxis,
-                                       angularSpeedFrame.angularSpeedAroundXAxis,
-                                       angularSpeedFrame.angularSpeedAroundYAxis,
-                                       angularSpeedFrame.angularSpeedAroundZAxis);
-
-}
-
-//--------------------------------------------------------------------
-double IMU6DOF::getEstimatedAccelerationStd()const
-{
-  return zeroVelocityEstimator_.getAccelerationStd();
-}
-
-//--------------------------------------------------------------------
-double IMU6DOF::getEstimatedAngularSpeedStd()const
-{
-  return zeroVelocityEstimator_.getAngularSpeedStd();
 }
 
 }
