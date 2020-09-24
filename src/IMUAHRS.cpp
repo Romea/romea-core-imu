@@ -43,8 +43,8 @@ RollPitchCourseFrame IMUAHRS::createFrame(const double & rollAngle,
 
 // C++11
   RollPitchCourseFrame frame;
-  frame.rollAngle=eulerAngles.x();
-  frame.pitchAngle=eulerAngles.y();
+  frame.rollAngle=betweenMinusPiAndPi(eulerAngles.x());
+  frame.pitchAngle=betweenMinusPiAndPi(eulerAngles.y());
   frame.courseAngle=eulerAngles.z();
   return frame;
 
