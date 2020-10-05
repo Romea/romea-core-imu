@@ -1,99 +1,78 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(romea_imu)
+cmake_minimum_required(VERSION 3.5)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -std=c++17")
+project(
+  "romea_imu"
+  VERSION 0.1.0
+  #  DESCRIPTION
+  #  HOMEPAGE_URL
+  LANGUAGES CXX)
 
-#######################
-## Find dependencies ##
-#######################
-set(${PROJECT_NAME}_CATKIN_DEPS roscpp romea_common)
-find_package(catkin REQUIRED COMPONENTS ${${PROJECT_NAME}_CATKIN_DEPS})
+find_package(romea_common REQUIRED)
 
-find_package( PkgConfig )
-pkg_check_modules( EIGEN3 REQUIRED eigen3 )
+add_library(${PROJECT_NAME} SHARED
+  src/IMU6DOF.cpp
+  src/IMU9DOF.cpp
+  src/IMUAHRS.cpp
+  src/IMUVRU.cpp
+  src/algorithms/ZeroVelocityEstimator.cpp
+  src/algorithms/RollPitchKalmanEstimator.cpp
+  src/algorithms/TriadAlgorithm.cpp
+  )
 
-###################################
-## catkin specific configuration ##
-###################################
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS ${${PROJECT_NAME}_CATKIN_DEPS}
-)
+target_include_directories(${PROJECT_NAME} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-###########
-## Build ##
-###########
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
+  ${romea_common_INCLUDE_DIRS})
 
-include_directories(
-    include
-    SYSTEM ${catkin_INCLUDE_DIRS}
-    SYSTEM /usr/include/eigen3
-    )
+target_compile_options(${PROJECT_NAME} PRIVATE
+  -Wall -Wextra -O3 -std=c++17)
 
-add_library(romea_imu
-    src/IMU6DOF.cpp
-    src/IMU9DOF.cpp
-    src/IMUAHRS.cpp
-    src/IMUVRU.cpp
-    src/algorithms/ZeroVelocityEstimator.cpp
-    src/algorithms/RollPitchKalmanEstimator.cpp
-    src/algorithms/TriadAlgorithm.cpp
-    )
+target_link_libraries(${PROJECT_NAME} PUBLIC
+  romea_common::romea_common)
+
+include(GNUInstallDirs)
+
+install(
+  TARGETS ${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}Targets
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+install(FILES package.xml DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME})
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  "${PROJECT_NAME}ConfigVersion.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion)
+
+configure_package_config_file(
+  "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake" INSTALL_DESTINATION
+  ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
+
+install(
+  EXPORT ${PROJECT_NAME}Targets
+  FILE ${PROJECT_NAME}Targets.cmake
+  NAMESPACE ${PROJECT_NAME}::
+  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
+
+install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 
 
-## Specify libraries to link a library or executable target against
-target_link_libraries(romea_imu ${catkin_LIBRARIES})
+#option(BUILD_TESTS "BUILD WITH TESTS" OFF)
+#if(BUILD_TESTS)
+#  enable_testing()
+#  add_subdirectory(test)
+#endif(BUILD_TESTS)
 
-
-#############
-## Install ##
-#############
-
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark executables and/or libraries for installation
-# install(TARGETS trackbod_driver trackbod_driver_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
-
-#############
-## Testing ##
-#############
-
-# Add gtest based cpp test target and link libraries
-#if(CATKIN_ENABLE_TESTING)
-
-#catkin_add_gtest(${PROJECT_NAME}-test test/test.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME} ${catkin_LIBRARIES})
-# endif()
-
-#endif(CATKIN_ENABLE_TESTING)
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
