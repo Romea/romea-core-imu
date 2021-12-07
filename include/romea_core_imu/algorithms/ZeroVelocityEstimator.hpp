@@ -2,7 +2,7 @@
 #define romea_ZeroVelocityEstimator_hpp
 
 //romea
-#include <romea_common/monitoring/OnlineVariance.hpp>
+#include <romea_core_common/monitoring/OnlineVariance.hpp>
 
 //Eigen
 #include <Eigen/Eigen>

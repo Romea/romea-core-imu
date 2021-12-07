@@ -2,9 +2,9 @@
 #include <Eigen/LU>
 
 //romea
-#include "romea_imu/algorithms/RollPitchKalmanEstimator.hpp"
-#include <romea_common/math/Algorithm.hpp>
-#include <romea_common/math/EulerAngles.hpp>
+#include "romea_core_imu/algorithms/RollPitchKalmanEstimator.hpp"
+#include <romea_core_common/math/Algorithm.hpp>
+#include <romea_core_common/math/EulerAngles.hpp>
 
 namespace romea {
 

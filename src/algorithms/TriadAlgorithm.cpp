@@ -1,5 +1,5 @@
 //romea
-#include "romea_imu/algorithms/TriadAlgorithm.hpp"
+#include "romea_core_imu/algorithms/TriadAlgorithm.hpp"
 
 
 namespace romea {

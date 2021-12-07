@@ -1,6 +1,6 @@
 //romea
-#include "romea_imu/IMU9DOF.hpp"
-#include <romea_common/signal/Noise.hpp>
+#include "romea_core_imu/IMU9DOF.hpp"
+#include <romea_core_common/signal/Noise.hpp>
 
 namespace romea {
 

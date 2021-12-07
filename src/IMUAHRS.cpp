@@ -1,5 +1,5 @@
-#include "romea_imu/IMUAHRS.hpp"
-#include <romea_common/math/EulerAngles.hpp>
+#include "romea_core_imu/IMUAHRS.hpp"
+#include <romea_core_common/math/EulerAngles.hpp>
 
 namespace romea {
 

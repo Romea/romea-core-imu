@@ -1,4 +1,4 @@
-#include "romea_imu/algorithms/ZeroVelocityEstimator.hpp"
+#include "romea_core_imu/algorithms/ZeroVelocityEstimator.hpp"
 
 #include <cmath>
 
