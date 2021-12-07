@@ -28,12 +28,12 @@ melodic_catkin_build:
   image: ros:melodic-robot
   stage: build
   script:
-    - catkin build romea_imu --summarize --no-status --force-color
+    - catkin build romea_core_imu --summarize --no-status --force-color
 
 # noetic
 noetic_catkin_build:
   image: ros:noetic-robot
   stage: build
   script:
-    - catkin build romea_imu --summarize --no-status --force-color
+    - catkin build romea_core_imu --summarize --no-status --force-color
 
