@@ -16,7 +16,8 @@ IMUAHRS::IMUAHRS(const double &rate,
                  const double &magneticNoiseDenity,
                  const double &magneticBiaisStatibilityStd,
                  const double &magneticRange,
-                 const double &angleStd):
+                 const double &angleStd,
+                 const Eigen::Affine3d &bodyPose):
   IMU9DOF(rate,
           accelerationNoiseDensity,
           accelerationBiaisStatibilityStd,
@@ -26,7 +27,8 @@ IMUAHRS::IMUAHRS(const double &rate,
           angularSpeedRange,
           magneticNoiseDenity,
           magneticBiaisStatibilityStd,
-          magneticRange),
+          magneticRange,
+          bodyPose),
   angleStd_(angleStd),
   angleVariance_(angleStd*angleStd)
 {

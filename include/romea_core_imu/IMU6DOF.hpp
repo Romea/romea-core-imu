@@ -22,7 +22,8 @@ public :
           const double & accelerationRange,
           const double & angularSpeedNoiseDensity,
           const double & angularSpeedBiasStatibilityStd,
-          const double & angularSpeedRange);
+          const double & angularSpeedRange,
+          const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
   virtual ~IMU6DOF()=default;
 

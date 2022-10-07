@@ -12,7 +12,8 @@ IMU6DOF::IMU6DOF(const double & rate,
                  const double & accelerationRange,
                  const double & angularSpeedNoiseDensity,
                  const double & angularSpeedBiasStatibilityStd,
-                 const double & angularSpeedRange):
+                 const double & angularSpeedRange,
+                 const Eigen::Affine3d & bodyPose):
   rate_(rate),
   accelerationNoiseDensity_(accelerationNoiseDensity),
   accelerationBiasStatibilityStd_(accelerationBiasStatibilityStd),
@@ -20,7 +21,7 @@ IMU6DOF::IMU6DOF(const double & rate,
   angularSpeedNoiseDensity_(angularSpeedNoiseDensity),
   angularSpeedBiasStatibilityStd_(angularSpeedBiasStatibilityStd),
   angularSpeedRange_(angularSpeedRange),
-  rigidTransformation_(Eigen::Affine3d::Identity())
+  rigidTransformation_(bodyPose)
 {
 
 

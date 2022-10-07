@@ -24,7 +24,8 @@ public :
           const double & angularSpeedRange,
           const double & magneticNoiseDenity,
           const double & magneticBiaisStatibilityStd,
-          const double & magneticRange);
+          const double & magneticRange,
+          const Eigen::Affine3d & bodyPose= Eigen::Affine3d::Identity());
 
   virtual ~IMU9DOF()=default;
 

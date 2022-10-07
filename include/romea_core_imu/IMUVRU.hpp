@@ -22,7 +22,8 @@ public :
          const double & angularSpeedNoiseDensity,
          const double & angularSpeedBiasStatibilityStd,
          const double & angularSpeedRange,
-         const double & angleStd);
+         const double & angleStd,
+         const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
 public:
 

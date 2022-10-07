@@ -11,14 +11,16 @@ IMUVRU::IMUVRU(const double & rate,
                const double & angularSpeedNoiseDensity,
                const double & angularSpeedBiasStatibilityStd,
                const double & angularSpeedRange,
-               const double & angleStd):
+               const double & angleStd,
+               const Eigen::Affine3d & bodyPose):
   IMU6DOF(rate,
           accelerationNoiseDensity,
           accelerationBiasStatibilityStd,
           accelerationRange,
           angularSpeedNoiseDensity,
           angularSpeedBiasStatibilityStd,
-          angularSpeedRange),
+          angularSpeedRange,
+          bodyPose),
   angleStd_(angleStd),
   angleVariance_(angleStd*angleStd)
 {

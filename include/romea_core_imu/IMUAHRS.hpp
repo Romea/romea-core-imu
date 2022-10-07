@@ -25,8 +25,8 @@ public :
           const double & magneticNoiseDenity,
           const double & magneticBiaisStatibilityStd,
           const double & magneticRange,
-          const double & angleStd);
-
+          const double & angleStd,
+          const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
 public:
 
