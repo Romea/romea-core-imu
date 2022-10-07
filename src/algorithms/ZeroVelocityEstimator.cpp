@@ -1,6 +1,7 @@
 #include "romea_core_imu/algorithms/ZeroVelocityEstimator.hpp"
 
 #include <cmath>
+#include <iostream>
 
 namespace {
 const double AVERAGE_PRECISION = 0.001;
@@ -51,6 +52,16 @@ bool ZeroVelocityEstimator::update(const double & accelerationAlongXBodyAxis,
 
   if(varAccelerationAlongXBodyAxis_.isAvailable())
   {
+//    std::cout  << varAccelerationAlongXBodyAxis_.getVariance() << " "
+//               << varAccelerationAlongYBodyAxis_.getVariance()  << " "
+//               << varAccelerationAlongZBodyAxis_.getVariance() <<" "
+//               << accelerationVarianceThreshold_ <<std::endl;
+
+//    std::cout  << varAngularSpeedAroundXBodyAxis_.getVariance() << " "
+//               << varAngularSpeedAroundYBodyAxis_.getVariance()  << " "
+//               << varAngularSpeedAroundZBodyAxis_.getVariance() <<" "
+//               << angularSpeedVarianceThreshold_ <<std::endl;
+
     return varAccelerationAlongXBodyAxis_.getVariance()<accelerationVarianceThreshold_ &&
         varAccelerationAlongYBodyAxis_.getVariance()<accelerationVarianceThreshold_ &&
         varAccelerationAlongZBodyAxis_.getVariance()<accelerationVarianceThreshold_ &&
@@ -91,6 +102,17 @@ bool ZeroVelocityEstimator::update(const Eigen::Vector3d & accelerationSpeeds,
                 angularSpeeds.x(),
                 angularSpeeds.y(),
                 angularSpeeds.z());
+}
+
+//-----------------------------------------------------------------------------
+void ZeroVelocityEstimator::reset()
+{
+  varAccelerationAlongXBodyAxis_.reset();
+  varAccelerationAlongYBodyAxis_.reset();
+  varAccelerationAlongZBodyAxis_.reset();
+  varAngularSpeedAroundXBodyAxis_.reset();
+  varAngularSpeedAroundYBodyAxis_.reset();
+  varAngularSpeedAroundZBodyAxis_.reset();
 }
 
 }

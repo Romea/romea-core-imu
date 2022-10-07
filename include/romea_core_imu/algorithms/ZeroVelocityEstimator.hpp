@@ -37,6 +37,7 @@ public:
 
   double getAngularSpeedStd()const;
 
+  void reset();
 
 private:
 
