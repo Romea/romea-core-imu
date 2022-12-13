@@ -1,13 +1,13 @@
-#ifndef _romea_TriadAttitude_hpp
-#define _romea_TriadAttitude_hpp
+#ifndef ROMEA_CORE_IMU_ALGORITHMS_TRIADALGORITHM_HPP_
+#define ROMEA_CORE_IMU_ALGORITHMS_TRIADALGORITHM_HPP_
 
-//romea
+// Eigen
 #include <Eigen/Eigen>
 
-namespace romea {
+namespace romea 
+{
 
 class TriadAttitude{
-
 public :
 
   TriadAttitude();
@@ -26,12 +26,11 @@ public :
   bool isInitialized()const;
 
 private:
-
   Eigen::Matrix3d currentAttitude_;
   Eigen::Matrix3d referenceAttitude_;
   bool isInitialized_;
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_CORE_IMU_ALGORITHMS_TRIADALGORITHM_HPP_

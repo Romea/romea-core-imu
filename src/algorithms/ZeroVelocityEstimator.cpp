@@ -1,5 +1,7 @@
+// romea
 #include "romea_core_imu/algorithms/ZeroVelocityEstimator.hpp"
 
+// std
 #include <cmath>
 #include <iostream>
 
@@ -16,12 +18,12 @@ ZeroVelocityEstimator::ZeroVelocityEstimator(const double & imuRate,
                                              const double & angularSpeedStd):
   accelerationVarianceThreshold_(2*accelerationSpeedStd*accelerationSpeedStd),
   angularSpeedVarianceThreshold_(2*angularSpeedStd*angularSpeedStd),
-  varAccelerationAlongXBodyAxis_(AVERAGE_PRECISION,2*imuRate),
-  varAccelerationAlongYBodyAxis_(AVERAGE_PRECISION,2*imuRate),
-  varAccelerationAlongZBodyAxis_(AVERAGE_PRECISION,2*imuRate),
-  varAngularSpeedAroundXBodyAxis_(AVERAGE_PRECISION,2*imuRate),
-  varAngularSpeedAroundYBodyAxis_(AVERAGE_PRECISION,2*imuRate),
-  varAngularSpeedAroundZBodyAxis_(AVERAGE_PRECISION,2*imuRate)
+  varAccelerationAlongXBodyAxis_(AVERAGE_PRECISION, 2*imuRate),
+  varAccelerationAlongYBodyAxis_(AVERAGE_PRECISION, 2*imuRate),
+  varAccelerationAlongZBodyAxis_(AVERAGE_PRECISION, 2*imuRate),
+  varAngularSpeedAroundXBodyAxis_(AVERAGE_PRECISION, 2*imuRate),
+  varAngularSpeedAroundYBodyAxis_(AVERAGE_PRECISION, 2*imuRate),
+  varAngularSpeedAroundZBodyAxis_(AVERAGE_PRECISION, 2*imuRate)
 {
 
 }
@@ -30,7 +32,7 @@ ZeroVelocityEstimator::ZeroVelocityEstimator(const double & imuRate,
 void ZeroVelocityEstimator::init(const double & accelerationSpeedStd,
                                  const double & angularSpeedStd)
 {
-  accelerationVarianceThreshold_= 2*accelerationSpeedStd*accelerationSpeedStd;
+  accelerationVarianceThreshold_ = 2*accelerationSpeedStd*accelerationSpeedStd;
   angularSpeedVarianceThreshold_ = 2*angularSpeedStd*angularSpeedStd;
 }
 
@@ -50,7 +52,7 @@ bool ZeroVelocityEstimator::update(const double & accelerationAlongXBodyAxis,
   varAngularSpeedAroundYBodyAxis_.update(angularSpeedAroundYBodyAxis);
   varAngularSpeedAroundZBodyAxis_.update(angularSpeedAroundZBodyAxis);
 
-  if(varAccelerationAlongXBodyAxis_.isAvailable())
+  if (varAccelerationAlongXBodyAxis_.isAvailable())
   {
 //    std::cout  << varAccelerationAlongXBodyAxis_.getVariance() << " "
 //               << varAccelerationAlongYBodyAxis_.getVariance()  << " "
@@ -62,18 +64,15 @@ bool ZeroVelocityEstimator::update(const double & accelerationAlongXBodyAxis,
 //               << varAngularSpeedAroundZBodyAxis_.getVariance() <<" "
 //               << angularSpeedVarianceThreshold_ <<std::endl;
 
-    return varAccelerationAlongXBodyAxis_.getVariance()<accelerationVarianceThreshold_ &&
-        varAccelerationAlongYBodyAxis_.getVariance()<accelerationVarianceThreshold_ &&
-        varAccelerationAlongZBodyAxis_.getVariance()<accelerationVarianceThreshold_ &&
-        varAngularSpeedAroundXBodyAxis_.getVariance()< angularSpeedVarianceThreshold_ &&
-        varAngularSpeedAroundYBodyAxis_.getVariance()< angularSpeedVarianceThreshold_ &&
-        varAngularSpeedAroundZBodyAxis_.getVariance()< angularSpeedVarianceThreshold_;
-  }
-  else
-  {
+    return varAccelerationAlongXBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
+        varAccelerationAlongYBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
+        varAccelerationAlongZBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
+        varAngularSpeedAroundXBodyAxis_.getVariance() < angularSpeedVarianceThreshold_ &&
+        varAngularSpeedAroundYBodyAxis_.getVariance() < angularSpeedVarianceThreshold_ &&
+        varAngularSpeedAroundZBodyAxis_.getVariance() < angularSpeedVarianceThreshold_;
+  } else {
     return false;
   }
-
 }
 
 //-----------------------------------------------------------------------------
@@ -115,4 +114,4 @@ void ZeroVelocityEstimator::reset()
   varAngularSpeedAroundZBodyAxis_.reset();
 }
 
-}
+}  // namespace romea

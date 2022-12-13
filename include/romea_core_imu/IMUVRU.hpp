@@ -1,18 +1,17 @@
-#ifndef romea_IMUVRU_hpp
-#define romea_IMUVRU_hpp
+#ifndef ROMEA_CORE_IMU_IMUVRU_HPP_
+#define ROMEA_CORE_IMU_IMUVRU_HPP_
 
-//romea
-#include "IMU6DOF.hpp"
-#include "RollPitchFrame.hpp"
-
-//eigen
+// eigen
 #include <Eigen/Eigen>
+
+// romea
+#include "romea_core_imu/IMU6DOF.hpp"
+#include "romea_core_imu/RollPitchFrame.hpp"
 
 namespace romea {
 
 class IMUVRU : public IMU6DOF
 {
-
 public :
 
   IMUVRU(const double & rate,
@@ -26,7 +25,6 @@ public :
          const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
 public:
-
   RollPitchFrame createFrame(const double & rollAngle,
                              const double & pitchAngle);
 
@@ -35,12 +33,10 @@ public:
   double getAngleVariance() const;
 
 private:
-
   const double angleStd_;
   const double angleVariance_;
-
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_CORE_IMU_IMUVRU_HPP_

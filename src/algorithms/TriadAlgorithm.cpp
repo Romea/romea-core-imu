@@ -1,4 +1,4 @@
-//romea
+// romea
 #include "romea_core_imu/algorithms/TriadAlgorithm.hpp"
 
 
@@ -21,7 +21,7 @@ TriadAttitude::TriadAttitude(const Eigen::Vector3d &imuAccelerations,
   isInitialized_(true)
 
 {
-  init(imuAccelerations,imuMagnetics);
+  init(imuAccelerations, imuMagnetics);
 }
 
 //--------------------------------------------------------------------
@@ -36,19 +36,19 @@ inline void computeAttitude(const Eigen::Vector3d & imuAccelerations,
 
 //--------------------------------------------------------------------
 void TriadAttitude::init(const Eigen::Vector3d & imuAccelerations,
-                            const Eigen::Vector3d & imuMagnetics)
+                         const Eigen::Vector3d & imuMagnetics)
 {
-  computeAttitude(imuAccelerations,imuMagnetics,referenceAttitude_);
-  isInitialized_=true;
+  computeAttitude(imuAccelerations, imuMagnetics, referenceAttitude_);
+  isInitialized_ = true;
 }
 
 
 //--------------------------------------------------------------------
 Eigen::Matrix3d TriadAttitude::compute(const Eigen::Vector3d & imuAccelerations,
-                                          const Eigen::Vector3d & imuMagnetics)
+                                       const Eigen::Vector3d & imuMagnetics)
 {
   assert(isInitialized_);
-  computeAttitude(imuAccelerations,imuMagnetics,currentAttitude_);
+  computeAttitude(imuAccelerations, imuMagnetics, currentAttitude_);
   return currentAttitude_*referenceAttitude_.inverse();
 }
 
@@ -58,6 +58,5 @@ bool TriadAttitude::isInitialized()const
   return isInitialized_;
 }
 
-
-}
+}  // namespace romea
 

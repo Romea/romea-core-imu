@@ -1,10 +1,10 @@
-#ifndef romea_RollPitchFrame_hpp
-#define romea_RollPitchFrame_hpp
+#ifndef ROMEA_CORE_IMU_ROLLPITCHFRAME_HPP
+#define ROMEA_CORE_IMU_ROLLPITCHFRAME_HPP
 
-//eigen
+// eigen
 #include <Eigen/Eigen>
 
-//std
+// std
 #include <memory>
 
 namespace romea {
@@ -12,12 +12,11 @@ namespace romea {
 
 struct RollPitchFrame
 {
-  using Ptr=std::shared_ptr<RollPitchFrame> ;
-
+  using Ptr = std::shared_ptr<RollPitchFrame> ;
   double rollAngle;
   double pitchAngle;
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_CORE_IMU_ROLLPITCHFRAME_HPP

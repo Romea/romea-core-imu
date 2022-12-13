@@ -1,17 +1,20 @@
-#ifndef romea_RollPitchCourseFrame_hpp
-#define romea_RollPitchCourseFrame_hpp
+#ifndef ROMEA_CORE_IMU_ROLLPITCHCOURSEFRAME_HPP_
+#define ROMEA_CORE_IMU_ROLLPITCHCOURSEFRAME_HPP_
 
-#include "RollPitchFrame.hpp"
+// std
+#include <memory>
+
+// romea
+#include "romea_core_imu/RollPitchFrame.hpp"
 
 namespace romea {
 
 struct RollPitchCourseFrame : RollPitchFrame
 {
-
-  using Ptr =std::shared_ptr<RollPitchCourseFrame> ;
+  using Ptr = std::shared_ptr<RollPitchCourseFrame> ;
   double courseAngle;
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_CORE_IMU_ROLLPITCHCOURSEFRAME_HPP_

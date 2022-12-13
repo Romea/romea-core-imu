@@ -1,20 +1,18 @@
-#ifndef romea_ZeroVelocityEstimator_hpp
-#define romea_ZeroVelocityEstimator_hpp
+#ifndef ROMEA_CORE_IMU_ALGORITHMS_ZEROVELOCITYESTIMATOR_HPP_
+#define ROMEA_CORE_IMU_ALGORITHMS_ZEROVELOCITYESTIMATOR_HPP_
 
-//romea
-#include <romea_core_common/monitoring/OnlineVariance.hpp>
-
-//Eigen
+// Eigen
 #include <Eigen/Eigen>
+
+// romea
+#include <romea_core_common/monitoring/OnlineVariance.hpp>
 
 namespace romea
 {
 
 class ZeroVelocityEstimator
 {
-
 public:
-
   ZeroVelocityEstimator(const double &imuRate,
                         const double & accelerationSpeedStd,
                         const double & angularSpeedStd);
@@ -40,7 +38,6 @@ public:
   void reset();
 
 private:
-
   double accelerationVarianceThreshold_;
   double angularSpeedVarianceThreshold_;
 
@@ -50,9 +47,8 @@ private:
   OnlineVariance varAngularSpeedAroundXBodyAxis_;
   OnlineVariance varAngularSpeedAroundYBodyAxis_;
   OnlineVariance varAngularSpeedAroundZBodyAxis_;
-
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_CORE_IMU_ALGORITHMS_ZEROVELOCITYESTIMATOR_HPP_

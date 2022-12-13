@@ -1,7 +1,7 @@
-//Eigen
+// Eigen
 #include <Eigen/LU>
 
-//romea
+// romea
 #include "romea_core_imu/algorithms/RollPitchKalmanEstimator.hpp"
 #include <romea_core_common/math/Algorithm.hpp>
 #include <romea_core_common/math/EulerAngles.hpp>
@@ -16,16 +16,14 @@ const double GRAVITY = -9.81;
 RollPitchKalmanEstimator::RollPitchKalmanEstimator():
   X_(Eigen::Vector2d::Zero()),
   P_(Eigen::Matrix2d::Zero()),
-  F_(Eigen::MatrixXd::Zero(2,3)),
-  H_(Eigen::MatrixXd::Zero(3,2)),
+  F_(Eigen::MatrixXd::Zero(2, 3)),
+  H_(Eigen::MatrixXd::Zero(3, 2)),
   Inn_(Eigen::Vector3d::Zero()),
   InnCov_(Eigen::Matrix3d ::Zero()),
-  K_(Eigen::MatrixXd::Zero(2,3)),
+  K_(Eigen::MatrixXd::Zero(2, 3)),
   isInitialized_(false),
   previousDuration_(Duration::zero())
-
 {
-
 }
 
 
@@ -34,12 +32,11 @@ void RollPitchKalmanEstimator::init(const Duration & duration,
                                     const Eigen::Vector3d & imuAccelerations,
                                     const double & /*imuAccelerationsVar*/)
 {
-  //initialization
-  X_(0)=computeRoll(imuAccelerations);
-  X_(1)=computePitch(imuAccelerations);
+  X_(0) = computeRoll(imuAccelerations);
+  X_(1) = computePitch(imuAccelerations);
   P_ = Eigen::Matrix2d::Identity();
-  previousDuration_=duration;
-  isInitialized_=true;
+  previousDuration_ = duration;
+  isInitialized_ = true;
 }
 
 //--------------------------------------------------------------------
@@ -49,12 +46,11 @@ void RollPitchKalmanEstimator::update(const Duration & duration,
                                       const Eigen::Vector3d & imuAngularSpeeds,
                                       const double & imuAngularSpeedsVar)
 {
-
   assert(isInitialized_);
 
-  //prediction
-  double & roll =X_[0];
-  double & pitch =X_[1];
+  // prediction
+  double & roll  = X_[0];
+  double & pitch  = X_[1];
 
   double dt = durationToSecond(duration-previousDuration_);
 
@@ -65,7 +61,7 @@ void RollPitchKalmanEstimator::update(const Duration & duration,
   P_ += F_*F_.transpose()*imuAngularSpeedsVar*dt*dt;
 
 
-  //update
+  // update
   H_.row(0)<< 0                             ,   std::cos(pitch);
   H_.row(1)<<  -std::cos(roll)*std::cos(pitch), std::sin(roll)*std::sin(pitch);
   H_.row(2)<<  std::sin(roll)*std::cos(pitch),  std::cos(roll)*std::sin(pitch);
@@ -80,22 +76,21 @@ void RollPitchKalmanEstimator::update(const Duration & duration,
   X_ += K_*Inn_;
   P_ -= K_*H_*P_;
 
-  if(X_[1]>M_PI/2)
+  if (X_[1]> M_PI/2)
   {
     X_[0]+= M_PI;
     X_[1] = M_PI+X_[1];
   }
 
-  if(X_[1]<-M_PI/2)
+  if (X_[1] < -M_PI/2)
   {
     X_[0]+= M_PI;
     X_[1] =-M_PI-X_[1];
   }
 
-  X_[0]=betweenMinusPiAndPi(X_[0]);
+  X_[0] = betweenMinusPiAndPi(X_[0]);
 
-  previousDuration_=duration;
-
+  previousDuration_ = duration;
 }
 
 //--------------------------------------------------------------------
@@ -105,7 +100,7 @@ double RollPitchKalmanEstimator::computeRoll(const Eigen::Vector3d & imuAccelera
   double normXY = std::sqrt(imuAccelerations.z()*imuAccelerations.z() +
                             0.01*imuAccelerations.x()*imuAccelerations.x());
 
-  return sign(imuAccelerations.z())*std::atan2(imuAccelerations.y(),normXY);
+  return sign(imuAccelerations.z())*std::atan2(imuAccelerations.y(), normXY);
 }
 
 //--------------------------------------------------------------------
@@ -114,7 +109,7 @@ double RollPitchKalmanEstimator::computePitch(const Eigen::Vector3d & imuAcceler
   double normYZ = std::sqrt(imuAccelerations.y()*imuAccelerations.y()+
                             imuAccelerations.z()*imuAccelerations.z());
 
-  return std::atan2(imuAccelerations.x(),normYZ);
+  return std::atan2(imuAccelerations.x(), normYZ);
 }
 
 //--------------------------------------------------------------------
@@ -136,14 +131,14 @@ double RollPitchKalmanEstimator::getPitch()const
 double RollPitchKalmanEstimator::getRollVariance()const
 {
   assert(isInitialized_);
-  return P_(0,0);
+  return P_(0, 0);
 }
 
 //--------------------------------------------------------------------
 double RollPitchKalmanEstimator::getPitchVariance()const
 {
   assert(isInitialized_);
-  return P_(1,1);
+  return P_(1, 1);
 }
 
 //--------------------------------------------------------------------
@@ -159,7 +154,5 @@ bool RollPitchKalmanEstimator::isInitialized()
   return isInitialized_;
 }
 
-
-
-}
+}  // namespace romea
 

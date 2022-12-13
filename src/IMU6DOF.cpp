@@ -1,4 +1,4 @@
-//romea
+// romea
 #include "romea_core_imu/IMU6DOF.hpp"
 #include <romea_core_common/signal/Noise.hpp>
 
@@ -37,9 +37,9 @@ AccelerationsFrame IMU6DOF::createAccelerationsFrame(const double & acceleration
                                 accelerationAlongYAxis,
                                 accelerationAlongZAxis);
 
-  accelerations= rigidTransformation_.rotation()*accelerations;
+  accelerations = rigidTransformation_.rotation()*accelerations;
 
-  return {accelerations.x(),accelerations.y(),accelerations.z()};
+  return {accelerations.x(), accelerations.y(), accelerations.z()};
 }
 
 //--------------------------------------------------------------------
@@ -53,7 +53,7 @@ AngularSpeedsFrame IMU6DOF::createAngularSpeedsFrame(const double & angularSpeed
 
   angularSpeeds = rigidTransformation_.rotation()*angularSpeeds;
 
-  return {angularSpeeds.x(),angularSpeeds.y(),angularSpeeds.z()};
+  return {angularSpeeds.x(), angularSpeeds.y(), angularSpeeds.z()};
 }
 
 
@@ -67,8 +67,8 @@ const double & IMU6DOF::getRate() const
 
 double IMU6DOF::getAccelerationStd() const
 {
-  assert(rate_>0);
-  return convertNoiseDensityToNoiseStd(accelerationNoiseDensity_,rate_)+
+  assert(rate_ > 0);
+  return convertNoiseDensityToNoiseStd(accelerationNoiseDensity_, rate_)+
       accelerationBiasStatibilityStd_;
 }
 
@@ -88,8 +88,8 @@ const double & IMU6DOF::getAccelerationRange() const
 //--------------------------------------------------------------------
 double IMU6DOF::getAngularSpeedStd() const
 {
-  assert(rate_>0);
-  return convertNoiseDensityToNoiseStd(angularSpeedNoiseDensity_,rate_)+
+  assert(rate_ > 0);
+  return convertNoiseDensityToNoiseStd(angularSpeedNoiseDensity_, rate_)+
       angularSpeedBiasStatibilityStd_;
 }
 
@@ -105,7 +105,6 @@ const double & IMU6DOF::getAngularSpeedRange() const
 {
   return angularSpeedRange_;
 }
-
 
 //--------------------------------------------------------------------
 const double & IMU6DOF::getAccelerationNoiseDensity()const
@@ -134,7 +133,7 @@ const double & IMU6DOF::getAngularSpeedBiasStatibilityStd() const
 //--------------------------------------------------------------------
 void IMU6DOF::setBodyPose(const Eigen::Affine3d & rigidTransformation)
 {
-  rigidTransformation_=rigidTransformation;
+  rigidTransformation_ = rigidTransformation;
 }
 
 //--------------------------------------------------------------------
@@ -143,4 +142,4 @@ const Eigen::Affine3d & IMU6DOF::getBodyPose()const
   return rigidTransformation_;
 }
 
-}
+}  // namespace romea

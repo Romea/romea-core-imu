@@ -24,20 +24,18 @@ IMUVRU::IMUVRU(const double & rate,
   angleStd_(angleStd),
   angleVariance_(angleStd*angleStd)
 {
-
 }
 
 //--------------------------------------------------------------------
 RollPitchFrame IMUVRU::createFrame(const double & rollAngle,
                                    const double & pitchAngle)
 {
-  Eigen::Vector3d eulerAngles(rollAngle,pitchAngle,0);
+  Eigen::Vector3d eulerAngles(rollAngle, pitchAngle, 0);
   eulerAngles = rotation3DToEulerAngles(eulerAnglesToRotation3D(eulerAngles));
-  return {eulerAngles.x(),eulerAngles.y()};
+  return {eulerAngles.x(), eulerAngles.y()};
 }
 
 //--------------------------------------------------------------------
-
 double IMUVRU::getAngleStd() const
 {
   return angleStd_;
@@ -49,6 +47,4 @@ double IMUVRU::getAngleVariance() const
   return angleVariance_;
 }
 
-
-
-}
+}  // namespace romea

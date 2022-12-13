@@ -3,8 +3,6 @@
 
 namespace romea {
 
-
-
 //--------------------------------------------------------------------
 IMUAHRS::IMUAHRS(const double &rate,
                  const double &accelerationNoiseDensity,
@@ -40,19 +38,18 @@ RollPitchCourseFrame IMUAHRS::createFrame(const double & rollAngle,
                                           const double & pitchAngle,
                                           const double & courseAngle)
 {
-  Eigen::Vector3d eulerAngles(rollAngle,pitchAngle,courseAngle);
+  Eigen::Vector3d eulerAngles(rollAngle, pitchAngle, courseAngle);
   eulerAngles = rotation3DToEulerAngles(eulerAnglesToRotation3D(eulerAngles));
 
 // C++11
   RollPitchCourseFrame frame;
-  frame.rollAngle=betweenMinusPiAndPi(eulerAngles.x());
-  frame.pitchAngle=betweenMinusPiAndPi(eulerAngles.y());
-  frame.courseAngle=eulerAngles.z();
+  frame.rollAngle = betweenMinusPiAndPi(eulerAngles.x());
+  frame.pitchAngle = betweenMinusPiAndPi(eulerAngles.y());
+  frame.courseAngle = eulerAngles.z();
   return frame;
 
 // C++17
 // return {{eulerAngles.x(),eulerAngles.y()},eulerAngles.z()};
-
 }
 
 //--------------------------------------------------------------------
@@ -68,6 +65,4 @@ double IMUAHRS::getAngleVariance() const
   return angleVariance_;
 }
 
-
-
-}
+}  // namespace romea

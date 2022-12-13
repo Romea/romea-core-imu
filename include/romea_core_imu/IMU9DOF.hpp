@@ -1,20 +1,19 @@
-#ifndef romea_IMU9DOF_hpp
-#define romea_IMU9DOF_hpp
+#ifndef ROMEA_CORE_IMU_IMU9DOF_HPP_
+#define ROMEA_CORE_IMU_IMU9DOF_HPP_
 
-//romea
-#include "IMU6DOF.hpp"
-#include "MagneticsFrame.hpp"
-
-//eigen
+// eigen
 #include <Eigen/Eigen>
+
+// romea
+#include "romea_core_imu/IMU6DOF.hpp"
+#include "romea_core_imu/MagneticsFrame.hpp"
+
 
 namespace romea {
 
 class IMU9DOF : public IMU6DOF
 {
-
 public :
-
   IMU9DOF(const double & rate,
           const double & accelerationNoiseDensity,
           const double & accelerationBiaisStatibilityStd,
@@ -25,12 +24,11 @@ public :
           const double & magneticNoiseDenity,
           const double & magneticBiaisStatibilityStd,
           const double & magneticRange,
-          const Eigen::Affine3d & bodyPose= Eigen::Affine3d::Identity());
+          const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
-  virtual ~IMU9DOF()=default;
+  virtual ~IMU9DOF() = default;
 
 public:
-
   MagneticsFrame createMagneticsFrame(const double & magneticAlongXAxis,
                                       const double & magneticAlongYAxis,
                                       const double & magneticAlongZAxis);
@@ -49,7 +47,6 @@ public :
   const Eigen::Affine3d & getSoftIronCompensationMatrix() const;
 
 private:
-
   double magneticNoiseDenity_;
   double magneticBiasStatibilityStd_;
   double magneticRange_;
@@ -57,6 +54,6 @@ private:
   Eigen::Affine3d softIronCompensationMatrix_;
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_CORE_IMU_IMU9DOF_HPP_

@@ -1,19 +1,19 @@
-#ifndef romea_IMU6DOF_hpp
-#define romea_IMU6DOF_hpp
+#ifndef ROMEA_CORE_IMU_IMU6DOF_HPP_ 
+#define ROMEA_CORE_IMU_IMU6DOF_HPP_ 
 
-//romea
-#include "AccelerationsFrame.hpp"
-#include "AngularSpeedsFrame.hpp"
-
-//eigen
+// eigen
 #include <Eigen/Eigen>
 #include <Eigen/Geometry>
 
-namespace romea {
+// romea
+#include "romea_core_imu/AccelerationsFrame.hpp"
+#include "romea_core_imu/AngularSpeedsFrame.hpp"
+
+namespace romea
+{
 
 class IMU6DOF
 {
-
 public :
 
   IMU6DOF(const double & rate,
@@ -25,10 +25,9 @@ public :
           const double & angularSpeedRange,
           const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
-  virtual ~IMU6DOF()=default;
+  virtual ~IMU6DOF() = default;
 
 public:
-
   AccelerationsFrame createAccelerationsFrame(const double & accelerationAlongXAxis,
                                               const double & accelerationAlongYAxis,
                                               const double & accelerationAlongZAxis);
@@ -69,9 +68,8 @@ protected :
   double angularSpeedRange_;
 
   Eigen::Affine3d rigidTransformation_;
-
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif   // ROMEA_CORE_IMU_IMU6DOF_HPP_ 

@@ -1,10 +1,10 @@
-#ifndef romea_RollPitchKalmanEstimator_hpp
-#define romea_RollPitchKalmanEstimator_hpp
+#ifndef ROMEA_CORE_IMU_ALGORITHMS_ROLLPITCHKALMANESTIMATOR_HPP_
+#define ROMEA_CORE_IMU_ALGORITHMS_ROLLPITCHKALMANESTIMATOR_HPP_
 
-//Eigen
+// Eigen
 #include <Eigen/Core>
 
-//romea
+// romea
 #include "romea_core_common/time/Time.hpp"
 
 namespace romea {
@@ -37,8 +37,6 @@ public :
   bool isInitialized();
 
 private:
-
-
   Eigen::Vector2d X_;
   Eigen::Matrix2d P_;
   Eigen::MatrixXd F_;
@@ -54,6 +52,6 @@ public :
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
-}
+}  // namespace romea
 
-#endif
+#endif  // ROMEA_CORE_IMU_ALGORITHMS_ROLLPITCHKALMANESTIMATOR_HPP_
