@@ -1,5 +1,8 @@
-#ifndef ROMEA_CORE_IMU_IMUVRU_HPP_
-#define ROMEA_CORE_IMU_IMUVRU_HPP_
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+#ifndef ROMEA_CORE_IMU__IMUVRU_HPP_
+#define ROMEA_CORE_IMU__IMUVRU_HPP_
 
 // eigen
 #include <Eigen/Eigen>
@@ -8,25 +11,27 @@
 #include "romea_core_imu/IMU6DOF.hpp"
 #include "romea_core_imu/RollPitchFrame.hpp"
 
-namespace romea {
+namespace romea
+{
 
 class IMUVRU : public IMU6DOF
 {
-public :
-
-  IMUVRU(const double & rate,
-         const double & accelerationNoiseDensity,
-         const double & accelerationBiasStatibilityStd,
-         const double & accelerationRange,
-         const double & angularSpeedNoiseDensity,
-         const double & angularSpeedBiasStatibilityStd,
-         const double & angularSpeedRange,
-         const double & angleStd,
-         const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
+public:
+  IMUVRU(
+    const double & rate,
+    const double & accelerationNoiseDensity,
+    const double & accelerationBiasStatibilityStd,
+    const double & accelerationRange,
+    const double & angularSpeedNoiseDensity,
+    const double & angularSpeedBiasStatibilityStd,
+    const double & angularSpeedRange,
+    const double & angleStd,
+    const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
 public:
-  RollPitchFrame createFrame(const double & rollAngle,
-                             const double & pitchAngle);
+  RollPitchFrame createFrame(
+    const double & rollAngle,
+    const double & pitchAngle);
 
 
   double getAngleStd() const;
@@ -39,4 +44,4 @@ private:
 
 }  // namespace romea
 
-#endif  // ROMEA_CORE_IMU_IMUVRU_HPP_
+#endif  // ROMEA_CORE_IMU__IMUVRU_HPP_

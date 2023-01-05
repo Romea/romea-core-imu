@@ -1,6 +1,8 @@
-#ifndef ROMEA_CORE_IMU_MAGNETICSFRAME_HPP_
-#define ROMEA_CORE_IMU_MAGNETICSFRAME_HPP_
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
 
+#ifndef ROMEA_CORE_IMU__MAGNETICSFRAME_HPP_
+#define ROMEA_CORE_IMU__MAGNETICSFRAME_HPP_
 
 // std
 #include <memory>
@@ -18,4 +20,4 @@ struct MagneticsFrame
 
 }  // namespace romea
 
-#endif  // ROMEA_CORE_IMU_MAGNETICSFRAME_HPP_
+#endif  // ROMEA_CORE_IMU__MAGNETICSFRAME_HPP_

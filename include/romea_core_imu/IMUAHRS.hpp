@@ -1,5 +1,8 @@
-#ifndef ROMEA_CORE_IMU_IMUAHRS_HPP_
-#define ROMEA_CORE_IMU_IMUAHRS_HPP_
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+#ifndef ROMEA_CORE_IMU__IMUAHRS_HPP_
+#define ROMEA_CORE_IMU__IMUAHRS_HPP_
 
 // eigen
 #include <Eigen/Eigen>
@@ -9,28 +12,31 @@
 #include "romea_core_imu/RollPitchCourseFrame.hpp"
 
 
-namespace romea {
+namespace romea
+{
 
 class IMUAHRS : public IMU9DOF
 {
-public :
-  IMUAHRS(const double & rate,
-          const double & accelerationNoiseDensity,
-          const double & accelerationBiaisStatibilityStd,
-          const double & accelerationRange,
-          const double & angularSpeedNoiseDensity,
-          const double & angularSpeedBiaisStatibilityStd,
-          const double & angularSpeedRange,
-          const double & magneticNoiseDenity,
-          const double & magneticBiaisStatibilityStd,
-          const double & magneticRange,
-          const double & angleStd,
-          const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
+public:
+  IMUAHRS(
+    const double & rate,
+    const double & accelerationNoiseDensity,
+    const double & accelerationBiaisStatibilityStd,
+    const double & accelerationRange,
+    const double & angularSpeedNoiseDensity,
+    const double & angularSpeedBiaisStatibilityStd,
+    const double & angularSpeedRange,
+    const double & magneticNoiseDenity,
+    const double & magneticBiaisStatibilityStd,
+    const double & magneticRange,
+    const double & angleStd,
+    const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
 public:
-  RollPitchCourseFrame createFrame(const double & rollAngle,
-                                   const double & pitchAngle,
-                                   const double & courseAngle);
+  RollPitchCourseFrame createFrame(
+    const double & rollAngle,
+    const double & pitchAngle,
+    const double & courseAngle);
 
   double getAngleStd() const;
   double getAngleVariance() const;

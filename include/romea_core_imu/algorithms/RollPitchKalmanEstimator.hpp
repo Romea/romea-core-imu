@@ -1,5 +1,8 @@
-#ifndef ROMEA_CORE_IMU_ALGORITHMS_ROLLPITCHKALMANESTIMATOR_HPP_
-#define ROMEA_CORE_IMU_ALGORITHMS_ROLLPITCHKALMANESTIMATOR_HPP_
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+#ifndef ROMEA_CORE_IMU__ALGORITHMS__ROLLPITCHKALMANESTIMATOR_HPP_
+#define ROMEA_CORE_IMU__ALGORITHMS__ROLLPITCHKALMANESTIMATOR_HPP_
 
 // Eigen
 #include <Eigen/Core>
@@ -7,23 +10,25 @@
 // romea
 #include "romea_core_common/time/Time.hpp"
 
-namespace romea {
+namespace romea
+{
 
 class RollPitchKalmanEstimator
 {
-public :
-
+public:
   RollPitchKalmanEstimator();
 
-  void init(const Duration & duration,
-            const Eigen::Vector3d & imuAccelerations,
-            const double & imuAccelerationsVar);
+  void init(
+    const Duration & duration,
+    const Eigen::Vector3d & imuAccelerations,
+    const double & imuAccelerationsVar);
 
-  void update(const Duration & duration,
-              const Eigen::Vector3d & imuAccelerations,
-              const double & imuAccelerationsVar,
-              const Eigen::Vector3d & imuAngularSpeeds,
-              const double & imuAngularSpeedsVar);
+  void update(
+    const Duration & duration,
+    const Eigen::Vector3d & imuAccelerations,
+    const double & imuAccelerationsVar,
+    const Eigen::Vector3d & imuAngularSpeeds,
+    const double & imuAngularSpeedsVar);
 
   static double computeRoll(const Eigen::Vector3d & imuAccelerations);
   static double computePitch(const Eigen::Vector3d & imuAccelerations);
@@ -47,11 +52,10 @@ private:
   bool isInitialized_;
   Duration previousDuration_;
 
-public :
-
+public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
 }  // namespace romea
 
-#endif  // ROMEA_CORE_IMU_ALGORITHMS_ROLLPITCHKALMANESTIMATOR_HPP_
+#endif  // ROMEA_CORE_IMU__ALGORITHMS__ROLLPITCHKALMANESTIMATOR_HPP_

@@ -1,20 +1,25 @@
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
 // romea
 #include "romea_core_imu/IMU6DOF.hpp"
 #include <romea_core_common/signal/Noise.hpp>
 
-namespace romea {
+namespace romea
+{
 
 
 //--------------------------------------------------------------------
-IMU6DOF::IMU6DOF(const double & rate,
-                 const double & accelerationNoiseDensity,
-                 const double & accelerationBiasStatibilityStd,
-                 const double & accelerationRange,
-                 const double & angularSpeedNoiseDensity,
-                 const double & angularSpeedBiasStatibilityStd,
-                 const double & angularSpeedRange,
-                 const Eigen::Affine3d & bodyPose):
-  rate_(rate),
+IMU6DOF::IMU6DOF(
+  const double & rate,
+  const double & accelerationNoiseDensity,
+  const double & accelerationBiasStatibilityStd,
+  const double & accelerationRange,
+  const double & angularSpeedNoiseDensity,
+  const double & angularSpeedBiasStatibilityStd,
+  const double & angularSpeedRange,
+  const Eigen::Affine3d & bodyPose)
+: rate_(rate),
   accelerationNoiseDensity_(accelerationNoiseDensity),
   accelerationBiasStatibilityStd_(accelerationBiasStatibilityStd),
   accelerationRange_(accelerationRange),
@@ -23,35 +28,35 @@ IMU6DOF::IMU6DOF(const double & rate,
   angularSpeedRange_(angularSpeedRange),
   rigidTransformation_(bodyPose)
 {
-
-
 }
 
 
 //--------------------------------------------------------------------
-AccelerationsFrame IMU6DOF::createAccelerationsFrame(const double & accelerationAlongXAxis,
-                                                     const double & accelerationAlongYAxis,
-                                                     const double & accelerationAlongZAxis)
+AccelerationsFrame IMU6DOF::createAccelerationsFrame(
+  const double & accelerationAlongXAxis,
+  const double & accelerationAlongYAxis,
+  const double & accelerationAlongZAxis)
 {
   Eigen::Vector3d accelerations(accelerationAlongXAxis,
-                                accelerationAlongYAxis,
-                                accelerationAlongZAxis);
+    accelerationAlongYAxis,
+    accelerationAlongZAxis);
 
-  accelerations = rigidTransformation_.rotation()*accelerations;
+  accelerations = rigidTransformation_.rotation() * accelerations;
 
   return {accelerations.x(), accelerations.y(), accelerations.z()};
 }
 
 //--------------------------------------------------------------------
-AngularSpeedsFrame IMU6DOF::createAngularSpeedsFrame(const double & angularSpeedAroundXAxis,
-                                                     const double & angularSpeedAroundYAxis,
-                                                     const double & angularSpeedAroundZAxis)
+AngularSpeedsFrame IMU6DOF::createAngularSpeedsFrame(
+  const double & angularSpeedAroundXAxis,
+  const double & angularSpeedAroundYAxis,
+  const double & angularSpeedAroundZAxis)
 {
   Eigen::Vector3d angularSpeeds(angularSpeedAroundXAxis,
-                                angularSpeedAroundYAxis,
-                                angularSpeedAroundZAxis);
+    angularSpeedAroundYAxis,
+    angularSpeedAroundZAxis);
 
-  angularSpeeds = rigidTransformation_.rotation()*angularSpeeds;
+  angularSpeeds = rigidTransformation_.rotation() * angularSpeeds;
 
   return {angularSpeeds.x(), angularSpeeds.y(), angularSpeeds.z()};
 }
@@ -68,15 +73,15 @@ const double & IMU6DOF::getRate() const
 double IMU6DOF::getAccelerationStd() const
 {
   assert(rate_ > 0);
-  return convertNoiseDensityToNoiseStd(accelerationNoiseDensity_, rate_)+
-      accelerationBiasStatibilityStd_;
+  return convertNoiseDensityToNoiseStd(accelerationNoiseDensity_, rate_) +
+         accelerationBiasStatibilityStd_;
 }
 
 //--------------------------------------------------------------------
 double IMU6DOF::getAccelerationVariance() const
 {
   double accelerationStd = getAccelerationStd();
-  return accelerationStd*accelerationStd;
+  return accelerationStd * accelerationStd;
 }
 
 //--------------------------------------------------------------------
@@ -89,15 +94,15 @@ const double & IMU6DOF::getAccelerationRange() const
 double IMU6DOF::getAngularSpeedStd() const
 {
   assert(rate_ > 0);
-  return convertNoiseDensityToNoiseStd(angularSpeedNoiseDensity_, rate_)+
-      angularSpeedBiasStatibilityStd_;
+  return convertNoiseDensityToNoiseStd(angularSpeedNoiseDensity_, rate_) +
+         angularSpeedBiasStatibilityStd_;
 }
 
 //--------------------------------------------------------------------
 double IMU6DOF::getAngularSpeedVariance() const
 {
   double angularSpeedStd_ = getAngularSpeedStd();
-  return angularSpeedStd_*angularSpeedStd_;
+  return angularSpeedStd_ * angularSpeedStd_;
 }
 
 //--------------------------------------------------------------------

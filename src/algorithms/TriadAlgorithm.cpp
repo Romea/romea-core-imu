@@ -1,33 +1,36 @@
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
 // romea
 #include "romea_core_imu/algorithms/TriadAlgorithm.hpp"
 
-
-namespace romea {
+namespace romea
+{
 
 //--------------------------------------------------------------------
-TriadAttitude::TriadAttitude():
-  currentAttitude_(Eigen::Matrix3d::Identity()),
+TriadAttitude::TriadAttitude()
+: currentAttitude_(Eigen::Matrix3d::Identity()),
   referenceAttitude_(Eigen::Matrix3d::Identity()),
   isInitialized_(false)
 {
-
 }
 
 //--------------------------------------------------------------------
-TriadAttitude::TriadAttitude(const Eigen::Vector3d &imuAccelerations,
-                                   const Eigen::Vector3d &imuMagnetics):
-  currentAttitude_(Eigen::Matrix3d::Identity()),
+TriadAttitude::TriadAttitude(
+  const Eigen::Vector3d & imuAccelerations,
+  const Eigen::Vector3d & imuMagnetics)
+: currentAttitude_(Eigen::Matrix3d::Identity()),
   referenceAttitude_(Eigen::Matrix3d::Identity()),
   isInitialized_(true)
-
 {
   init(imuAccelerations, imuMagnetics);
 }
 
 //--------------------------------------------------------------------
-inline void computeAttitude(const Eigen::Vector3d & imuAccelerations,
-                            const Eigen::Vector3d & imuMagnetics,
-                            Eigen::Matrix3d & R)
+inline void computeAttitude(
+  const Eigen::Vector3d & imuAccelerations,
+  const Eigen::Vector3d & imuMagnetics,
+  Eigen::Matrix3d & R)
 {
   R.col(2) = imuAccelerations.normalized();
   R.col(1) = (imuAccelerations.cross(imuMagnetics)).normalized();
@@ -35,8 +38,9 @@ inline void computeAttitude(const Eigen::Vector3d & imuAccelerations,
 }
 
 //--------------------------------------------------------------------
-void TriadAttitude::init(const Eigen::Vector3d & imuAccelerations,
-                         const Eigen::Vector3d & imuMagnetics)
+void TriadAttitude::init(
+  const Eigen::Vector3d & imuAccelerations,
+  const Eigen::Vector3d & imuMagnetics)
 {
   computeAttitude(imuAccelerations, imuMagnetics, referenceAttitude_);
   isInitialized_ = true;
@@ -44,12 +48,13 @@ void TriadAttitude::init(const Eigen::Vector3d & imuAccelerations,
 
 
 //--------------------------------------------------------------------
-Eigen::Matrix3d TriadAttitude::compute(const Eigen::Vector3d & imuAccelerations,
-                                       const Eigen::Vector3d & imuMagnetics)
+Eigen::Matrix3d TriadAttitude::compute(
+  const Eigen::Vector3d & imuAccelerations,
+  const Eigen::Vector3d & imuMagnetics)
 {
   assert(isInitialized_);
   computeAttitude(imuAccelerations, imuMagnetics, currentAttitude_);
-  return currentAttitude_*referenceAttitude_.inverse();
+  return currentAttitude_ * referenceAttitude_.inverse();
 }
 
 //--------------------------------------------------------------------
@@ -59,4 +64,3 @@ bool TriadAttitude::isInitialized()const
 }
 
 }  // namespace romea
-

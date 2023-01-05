@@ -1,10 +1,13 @@
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
 // Eigen
 #include <Eigen/LU>
 
 // romea
-#include "romea_core_imu/algorithms/RollPitchKalmanEstimator.hpp"
 #include <romea_core_common/math/Algorithm.hpp>
 #include <romea_core_common/math/EulerAngles.hpp>
+#include "romea_core_imu/algorithms/RollPitchKalmanEstimator.hpp"
 
 namespace romea {
 
@@ -96,7 +99,6 @@ void RollPitchKalmanEstimator::update(const Duration & duration,
 //--------------------------------------------------------------------
 double RollPitchKalmanEstimator::computeRoll(const Eigen::Vector3d & imuAccelerations)
 {
-
   double normXY = std::sqrt(imuAccelerations.z()*imuAccelerations.z() +
                             0.01*imuAccelerations.x()*imuAccelerations.x());
 
@@ -124,7 +126,6 @@ double RollPitchKalmanEstimator::getPitch()const
 {
   assert(isInitialized_);
   return X_[1];
-
 }
 
 //--------------------------------------------------------------------

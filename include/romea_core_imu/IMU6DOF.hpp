@@ -1,5 +1,8 @@
-#ifndef ROMEA_CORE_IMU_IMU6DOF_HPP_ 
-#define ROMEA_CORE_IMU_IMU6DOF_HPP_ 
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+#ifndef ROMEA_CORE_IMU__IMU6DOF_HPP_
+#define ROMEA_CORE_IMU__IMU6DOF_HPP_
 
 // eigen
 #include <Eigen/Eigen>
@@ -14,30 +17,31 @@ namespace romea
 
 class IMU6DOF
 {
-public :
-
-  IMU6DOF(const double & rate,
-          const double & accelerationNoiseDensity,
-          const double & accelerationBiasStatibilityStd,
-          const double & accelerationRange,
-          const double & angularSpeedNoiseDensity,
-          const double & angularSpeedBiasStatibilityStd,
-          const double & angularSpeedRange,
-          const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
+public:
+  IMU6DOF(
+    const double & rate,
+    const double & accelerationNoiseDensity,
+    const double & accelerationBiasStatibilityStd,
+    const double & accelerationRange,
+    const double & angularSpeedNoiseDensity,
+    const double & angularSpeedBiasStatibilityStd,
+    const double & angularSpeedRange,
+    const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
   virtual ~IMU6DOF() = default;
 
 public:
-  AccelerationsFrame createAccelerationsFrame(const double & accelerationAlongXAxis,
-                                              const double & accelerationAlongYAxis,
-                                              const double & accelerationAlongZAxis);
+  AccelerationsFrame createAccelerationsFrame(
+    const double & accelerationAlongXAxis,
+    const double & accelerationAlongYAxis,
+    const double & accelerationAlongZAxis);
 
-  AngularSpeedsFrame createAngularSpeedsFrame(const double & angularSpeedAroundXAxis,
-                                              const double & angularSpeedAroundYAxis,
-                                              const double & angularSpeedAroundZAxis);
+  AngularSpeedsFrame createAngularSpeedsFrame(
+    const double & angularSpeedAroundXAxis,
+    const double & angularSpeedAroundYAxis,
+    const double & angularSpeedAroundZAxis);
 
-public :
-
+public:
   const double & getRate() const;
 
   double getAccelerationStd() const;
@@ -55,8 +59,7 @@ public :
   void setBodyPose(const Eigen::Affine3d & rigidTransformation);
   const Eigen::Affine3d & getBodyPose()const;
 
-protected :
-
+protected:
   double rate_;
 
   double accelerationNoiseDensity_;
@@ -72,4 +75,4 @@ protected :
 
 }  // namespace romea
 
-#endif   // ROMEA_CORE_IMU_IMU6DOF_HPP_ 
+#endif   // ROMEA_CORE_IMU_IMU6DOF_HPP_

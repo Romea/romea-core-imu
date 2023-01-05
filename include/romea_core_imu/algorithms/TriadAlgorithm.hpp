@@ -1,10 +1,13 @@
-#ifndef ROMEA_CORE_IMU_ALGORITHMS_TRIADALGORITHM_HPP_
-#define ROMEA_CORE_IMU_ALGORITHMS_TRIADALGORITHM_HPP_
+// Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
+// Add license
+
+#ifndef ROMEA_CORE_IMU__ALGORITHMS__TRIADALGORITHM_HPP_
+#define ROMEA_CORE_IMU__ALGORITHMS__TRIADALGORITHM_HPP_
 
 // Eigen
 #include <Eigen/Eigen>
 
-namespace romea 
+namespace romea
 {
 
 class TriadAttitude{
@@ -33,4 +36,4 @@ private:
 
 }  // namespace romea
 
-#endif  // ROMEA_CORE_IMU_ALGORITHMS_TRIADALGORITHM_HPP_
+#endif  // ROMEA_CORE_IMU__ALGORITHMS__TRIADALGORITHM_HPP_
