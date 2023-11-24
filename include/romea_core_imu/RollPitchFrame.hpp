@@ -24,6 +24,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 struct RollPitchFrame
 {
@@ -32,6 +34,7 @@ struct RollPitchFrame
   double pitchAngle;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__ROLLPITCHFRAME_HPP

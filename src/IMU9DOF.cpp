@@ -19,6 +19,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 //--------------------------------------------------------------------
 IMU9DOF::IMU9DOF(
@@ -116,4 +118,5 @@ const Eigen::Affine3d & IMU9DOF::getSoftIronCompensationMatrix() const
   return softIronCompensationMatrix_;
 }
 
+}  // namespace core
 }  // namespace romea

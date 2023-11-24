@@ -25,6 +25,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 class IMUVRU : public IMU6DOF
 {
@@ -54,6 +56,7 @@ private:
   const double angleVariance_;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__IMUVRU_HPP_

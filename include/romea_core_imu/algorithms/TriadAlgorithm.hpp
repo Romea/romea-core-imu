@@ -21,22 +21,26 @@
 
 namespace romea
 {
+namespace core
+{
 
-class TriadAttitude{
-public :
-
+class TriadAttitude
+{
+public:
   TriadAttitude();
 
-  TriadAttitude(const Eigen::Vector3d & imuAccelerations,
-                const Eigen::Vector3d & imuMagnetics);
+  TriadAttitude(
+    const Eigen::Vector3d & imuAccelerations,
+    const Eigen::Vector3d & imuMagnetics);
 
-public :
+public:
+  void init(
+    const Eigen::Vector3d & imuAccelerations,
+    const Eigen::Vector3d & imuMagnetics);
 
-  void init(const Eigen::Vector3d &imuAccelerations,
-            const Eigen::Vector3d &imuMagnetics);
-
-  Eigen::Matrix3d compute(const Eigen::Vector3d & imuAccelerations,
-                          const Eigen::Vector3d & imuMagnetics);
+  Eigen::Matrix3d compute(
+    const Eigen::Vector3d & imuAccelerations,
+    const Eigen::Vector3d & imuMagnetics);
 
   bool isInitialized()const;
 
@@ -46,6 +50,7 @@ private:
   bool isInitialized_;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__ALGORITHMS__TRIADALGORITHM_HPP_

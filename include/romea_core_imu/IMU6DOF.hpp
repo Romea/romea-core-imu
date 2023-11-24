@@ -26,6 +26,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 class IMU6DOF
 {
@@ -85,6 +87,7 @@ protected:
   Eigen::Affine3d rigidTransformation_;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif   // ROMEA_CORE_IMU_IMU6DOF_HPP_

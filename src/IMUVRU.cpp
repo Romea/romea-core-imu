@@ -18,6 +18,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 //--------------------------------------------------------------------
 IMUVRU::IMUVRU(
@@ -65,4 +67,5 @@ double IMUVRU::getAngleVariance() const
   return angleVariance_;
 }
 
+}  // namespace core
 }  // namespace romea

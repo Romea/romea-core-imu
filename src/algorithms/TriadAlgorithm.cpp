@@ -18,6 +18,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 //--------------------------------------------------------------------
 TriadAttitude::TriadAttitude()
@@ -75,4 +77,5 @@ bool TriadAttitude::isInitialized()const
   return isInitialized_;
 }
 
+}  // namespace core
 }  // namespace romea

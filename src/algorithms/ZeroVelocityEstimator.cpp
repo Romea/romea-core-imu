@@ -27,6 +27,8 @@ const double AVERAGE_PRECISION = 0.001;
 
 namespace romea
 {
+namespace core
+{
 
 //-----------------------------------------------------------------------------
 ZeroVelocityEstimator::ZeroVelocityEstimator(
@@ -135,4 +137,5 @@ void ZeroVelocityEstimator::reset()
   varAngularSpeedAroundZBodyAxis_.reset();
 }
 
+}  // namespace core
 }  // namespace romea

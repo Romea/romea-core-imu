@@ -19,17 +19,21 @@
 // std
 #include <memory>
 
-namespace romea {
+namespace romea
+{
+namespace core
+{
 
 struct AccelerationsFrame
 {
-  using Ptr = std::shared_ptr<AccelerationsFrame> ;
+  using Ptr = std::shared_ptr<AccelerationsFrame>;
 
   double accelerationAlongXAxis;
   double accelerationAlongYAxis;
   double accelerationAlongZAxis;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__ACCELERATIONSFRAME_HPP_

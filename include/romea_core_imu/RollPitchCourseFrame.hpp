@@ -9,6 +9,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 struct RollPitchCourseFrame : RollPitchFrame
 {
@@ -16,6 +18,7 @@ struct RollPitchCourseFrame : RollPitchFrame
   double courseAngle;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__ROLLPITCHCOURSEFRAME_HPP_

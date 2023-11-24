@@ -26,6 +26,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 class IMU9DOF : public IMU6DOF
 {
@@ -71,6 +73,7 @@ private:
   Eigen::Affine3d softIronCompensationMatrix_;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__IMU9DOF_HPP_

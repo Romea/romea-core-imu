@@ -19,17 +19,21 @@
 // std
 #include <memory>
 
-namespace romea {
+namespace romea
+{
+namespace core
+{
 
 struct AngularSpeedsFrame
 {
-  using Ptr = std::shared_ptr<AngularSpeedsFrame> ;
+  using Ptr = std::shared_ptr<AngularSpeedsFrame>;
 
   double angularSpeedAroundXAxis;
   double angularSpeedAroundYAxis;
   double angularSpeedAroundZAxis;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__ANGULARSPEEDSFRAME_HPP_

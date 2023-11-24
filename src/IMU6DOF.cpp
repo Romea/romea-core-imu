@@ -19,6 +19,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 
 //--------------------------------------------------------------------
@@ -159,4 +161,5 @@ const Eigen::Affine3d & IMU6DOF::getBodyPose()const
   return rigidTransformation_;
 }
 
+}  // namespace core
 }  // namespace romea

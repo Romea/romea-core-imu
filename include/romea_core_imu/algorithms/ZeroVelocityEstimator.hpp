@@ -24,27 +24,33 @@
 
 namespace romea
 {
+namespace core
+{
 
 class ZeroVelocityEstimator
 {
 public:
-  ZeroVelocityEstimator(const double &imuRate,
-                        const double & accelerationSpeedStd,
-                        const double & angularSpeedStd);
+  ZeroVelocityEstimator(
+    const double & imuRate,
+    const double & accelerationSpeedStd,
+    const double & angularSpeedStd);
 
-  void init(const double & accelerationSpeedStd,
-            const double & angularSpeedStd);
+  void init(
+    const double & accelerationSpeedStd,
+    const double & angularSpeedStd);
 
 
-  bool update(const double & accelerationAlongXBodyAxis,
-              const double & accelerationAlongYBodyAxis,
-              const double & accelerationAlongZBodyAxis,
-              const double & angularSpeedAroundXBodyAxis,
-              const double & angularSpeedAroundYBodyAxis,
-              const double & angularSpeedAroundZBodyAxis);
+  bool update(
+    const double & accelerationAlongXBodyAxis,
+    const double & accelerationAlongYBodyAxis,
+    const double & accelerationAlongZBodyAxis,
+    const double & angularSpeedAroundXBodyAxis,
+    const double & angularSpeedAroundYBodyAxis,
+    const double & angularSpeedAroundZBodyAxis);
 
-  bool update(const Eigen::Vector3d & accelerationSpeeds,
-              const Eigen::Vector3d & angularSpeeds);
+  bool update(
+    const Eigen::Vector3d & accelerationSpeeds,
+    const Eigen::Vector3d & angularSpeeds);
 
   double getAccelerationStd()const;
 
@@ -64,6 +70,7 @@ private:
   OnlineVariance varAngularSpeedAroundZBodyAxis_;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__ALGORITHMS__ZEROVELOCITYESTIMATOR_HPP_

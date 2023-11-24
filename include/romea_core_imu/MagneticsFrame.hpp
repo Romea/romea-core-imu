@@ -19,17 +19,21 @@
 // std
 #include <memory>
 
-namespace romea {
+namespace romea
+{
+namespace core
+{
 
 struct MagneticsFrame
 {
-  using Ptr = std::shared_ptr<MagneticsFrame> ;
+  using Ptr = std::shared_ptr<MagneticsFrame>;
 
   double magneticAlongXAxis;
   double magneticAlongYAxis;
   double magneticAlongZAxis;
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__MAGNETICSFRAME_HPP_

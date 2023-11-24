@@ -24,6 +24,8 @@
 
 namespace romea
 {
+namespace core
+{
 
 class RollPitchKalmanEstimator
 {
@@ -68,6 +70,7 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 
+}  // namespace core
 }  // namespace romea
 
 #endif  // ROMEA_CORE_IMU__ALGORITHMS__ROLLPITCHKALMANESTIMATOR_HPP_
