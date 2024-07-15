@@ -63,4 +63,4 @@ private:
 }  // namespace core
 }  // namespace romea
 
-#endif  // ROMEA_CORE_IMU_IMUAHRS_HPP_
+#endif  // ROMEA_CORE_IMU__IMUAHRS_HPP_

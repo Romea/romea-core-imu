@@ -13,8 +13,8 @@
 // limitations under the License.
 
 
-#ifndef ROMEA_CORE_IMU__ROLLPITCHFRAME_HPP
-#define ROMEA_CORE_IMU__ROLLPITCHFRAME_HPP
+#ifndef ROMEA_CORE_IMU__ROLLPITCHFRAME_HPP_
+#define ROMEA_CORE_IMU__ROLLPITCHFRAME_HPP_
 
 // eigen
 #include <Eigen/Eigen>
@@ -37,4 +37,4 @@ struct RollPitchFrame
 }  // namespace core
 }  // namespace romea
 
-#endif  // ROMEA_CORE_IMU__ROLLPITCHFRAME_HPP
+#endif  // ROMEA_CORE_IMU__ROLLPITCHFRAME_HPP_

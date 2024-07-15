@@ -90,4 +90,4 @@ protected:
 }  // namespace core
 }  // namespace romea
 
-#endif   // ROMEA_CORE_IMU_IMU6DOF_HPP_
+#endif   // ROMEA_CORE_IMU__IMU6DOF_HPP_
