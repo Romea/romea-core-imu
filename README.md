@@ -1,26 +1,28 @@
+## ROMEA Core IMU Library
+
 ## IMU Data Processing
 
-This package provides a comprehensive suite of tools for handling data from Inertial Measurement Units (IMUs), including:
+This library provides a comprehensive suite of tools for handling data from Inertial Measurement Units (IMUs), including:
 
-- **6 Degrees of Freedom (6 DOF) IMU**: 
+- **6 Degrees of Freedom (6 DOF) IMU**
 
   Combines a 3-axis accelerometer and a 3-axis gyroscope to measure linear acceleration and angular velocity.
 
-- **9 Degrees of Freedom (9 DOF) IMU**: 
+- **9 Degrees of Freedom (9 DOF) IMU**
 
   Enhances the 6 DOF IMU by adding a 3-axis magnetometer, enabling more comprehensive orientation tracking through magnetic field sensing.
 
-- **Attitude and Heading Reference System (AHRS**): 
+- **Attitude and Heading Reference System (AHRS**)
 
   Leverages data from the 9 DOF IMU to compute complete 3D orientation, including roll, pitch, and yaw angles.
 
-- **Vertical Reference Unit (VRU)**: 
+- **Vertical Reference Unit (VRU)**
 
   Specializes in calculating roll and pitch to provide stable vertical orientation, making it ideal for systems that require accurate inclination measurements.
 
 ## Algorithms for IMU Data Processing
 
-This package offers several essential algorithms for processing and  fusing IMU data to estimate orientation, position, and motion states:
+This library offers several essential algorithms for processing and  fusing IMU data to estimate orientation, position, and motion states:
 
 - **Triad Algorithm**
   A simple and efficient method to estimate orientation using two  non-collinear reference vectors, typically from the accelerometer and  magnetometer. By aligning these reference vectors with known Earth-based vectors (gravity and magnetic north), the algorithm provides a basic  yet effective orientation estimate.
