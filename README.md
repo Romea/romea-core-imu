@@ -12,7 +12,7 @@ This library provides a comprehensive suite of tools for handling data from Iner
 
   Enhances the 6 DOF IMU by adding a 3-axis magnetometer, enabling more comprehensive orientation tracking through magnetic field sensing.
 
-- **Attitude and Heading Reference System (AHRS**)
+- **Attitude and Heading Reference System (AHRS)**
 
   Leverages data from the 9 DOF IMU to compute complete 3D orientation, including roll, pitch, and yaw angles.
 
