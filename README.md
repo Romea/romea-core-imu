@@ -26,7 +26,7 @@ This library also offers several essential algorithms for processing and  fusing
 2. cd worskpace
 3. mkdir src
 4. wget https://raw.githubusercontent.com/Romea/romea-core-imu/refs/heads/main/romea_imu_public.repos
-5. vcs import src < romea_filter_public.repos
+5. vcs import src < romea_imu_public.repos
 6. build packages
    - catkin build for ROS1
    - colcon build for ROS2
