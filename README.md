@@ -34,7 +34,7 @@ This library also offers several essential algorithms for processing and  fusing
 
 ## **Contributing**
 
-If you'd like to contribute to Project Title, here are some guidelines:
+If you'd like to contribute to this project, here are some guidelines:
 
 1. Fork the repository.
 2. Create a new branch for your changes.
@@ -47,7 +47,7 @@ If you'd like to contribute to Project Title, here are some guidelines:
 
 ## **License**
 
-Project Title is released under the Apache License 2.0. See the LICENSE file for details.
+This project is released under the Apache License 2.0. See the LICENSE file for details.
 
 ## **Authors**
 
