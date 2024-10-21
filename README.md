@@ -1,6 +1,6 @@
-## ROMEA Core IMU Library
+# romea_core_imu #
 
-This library provides a comprehensive suite of tools for handling data from Inertial Measurement Units (IMUs), including:
+This project is C++ library that provides a comprehensive suite of tools for handling data from Inertial Measurement Units (IMUs), including:
 
 - **6 Degrees of Freedom (6 DOF) IMU**
   Combines a 3-axis accelerometer and a 3-axis gyroscope to measure linear acceleration and angular velocity.
@@ -51,8 +51,8 @@ This project is released under the Apache License 2.0. See the LICENSE file for 
 
 ## **Authors**
 
-The Romea Core IMU library was developed by **Jean Laneurit** in the context of various research projects carried out at INRAE.
+The romea_core_imu library was developed by **Jean Laneurit** in the context of various research projects carried out at INRAE.
 
 ## **Contact**
 
-If you have any questions or comments about Romea Core IMU library, please contact **[Jean Laneurit](mailto:jean.laneurit@inrae.fr)** 
+If you have any questions or comments about romea_core_imu library, please contact **[Jean Laneurit](mailto:jean.laneurit@inrae.fr)** 
