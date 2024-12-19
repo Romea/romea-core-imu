@@ -1,4 +1,4 @@
-# romea_core_imu #
+# romea_core_imu
 
 This project is C++ library that provides a comprehensive suite of tools for handling data from Inertial Measurement Units (IMUs), including:
 
