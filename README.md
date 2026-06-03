@@ -1,58 +1,114 @@
 # romea_core_imu
 
-This project is C++ library that provides a comprehensive suite of tools for handling data from Inertial Measurement Units (IMUs), including:
+## Overview
 
-- **6 Degrees of Freedom (6 DOF) IMU**
-  Combines a 3-axis accelerometer and a 3-axis gyroscope to measure linear acceleration and angular velocity.
-- **9 Degrees of Freedom (9 DOF) IMU**
-  Enhances the 6 DOF IMU by adding a 3-axis magnetometer, enabling more comprehensive orientation tracking through magnetic field sensing.
-- **Attitude and Heading Reference System (AHRS)**
-  Leverages data from the 9 DOF IMU to compute complete 3D orientation, including roll, pitch, and yaw angles.
-- **Vertical Reference Unit (VRU)**
-  Specializes in calculating roll and pitch to provide stable vertical orientation, making it ideal for systems that require accurate inclination measurements.
+`romea_core_imu` is a C++ library for modelling IMU devices, creating typed IMU data frames and providing lightweight attitude and motion-detection algorithms.
 
-This library also offers several essential algorithms for processing and  fusing IMU data to estimate orientation, position, and motion states:
+The package is framework-independent C++ code. Middleware-specific drivers, messages and launch files are intentionally kept outside this library.
 
-- **Triad Algorithm**
-  A simple and efficient method to estimate orientation using two  non-collinear reference vectors, typically from the accelerometer and  magnetometer. By aligning these reference vectors with known Earth-based vectors (gravity and magnetic north), the algorithm provides a basic  yet effective orientation estimate.
-- **Zero Velocity Update (ZUPT)**
-  Commonly used in applications like Pedestrian Dead Reckoning (PDR) or scenarios  where an IMU is attached to a moving object. ZUPT detects stationary  periods (e.g., a foot at rest during walking) to reduce velocity drift,  correcting integration errors when calculating position from  acceleration data.
-- **Roll and Pitch Kalman Filter**
-  A Kalman Filter is used to optimally fuse noisy sensor data, producing  smooth and accurate orientation estimates. This implementation focuses  on estimating **roll** (rotation about the x-axis) and **pitch** (rotation about the y-axis), using a combination of accelerometer and gyroscope data for reliable attitude estimation.
+## IMU models
 
-## **Usage**
+| Model | Class | Measurements |
+| ----- | ----- | ------------ |
+| 6-DOF IMU | `IMU6DOF` | 3-axis linear acceleration and 3-axis angular speed. |
+| 9-DOF IMU | `IMU9DOF` | 6-DOF IMU data plus 3-axis magnetic field. |
+| VRU | `IMUVRU` | 6-DOF IMU data plus roll and pitch estimates. |
+| AHRS | `IMUAHRS` | 9-DOF IMU data plus roll, pitch and course estimates. |
 
-1. create a ROS workspace
-2. cd worskpace
-3. mkdir src
-4. wget https://raw.githubusercontent.com/Romea/romea-core-imu/refs/heads/main/romea_imu_public.repos
-5. vcs import src < romea_imu_public.repos
-6. build packages
-   - catkin build for ROS1
-   - colcon build for ROS2
-7. create your application using this library
+The models are incremental: `IMU9DOF` extends `IMU6DOF` with magnetic measurements, while `IMUVRU` and `IMUAHRS` add attitude estimates provided by the device.
 
-## **Contributing**
+---
 
-If you'd like to contribute to this project, here are some guidelines:
+## Sensor characteristics
 
-1. Fork the repository.
-2. Create a new branch for your changes.
-3. Make your changes.
-4. Write tests to cover your changes.
-5. Run the tests to ensure they pass.
-6. Commit your changes.
-7. Push your changes to your forked repository.
-8. Submit a pull request.
+Each IMU model stores device-level information and per-channel measurement characteristics used by algorithms that consume inertial data:
 
-## **License**
+| Scope | Quantities | Meaning |
+| ----- | ---------- | ------- |
+| Device | `rate`, `bodyPose` | Nominal update rate and rigid transform from the body frame to the IMU frame. |
+| Linear acceleration | `accelerationNoiseDensity`, `accelerationBiasStabilityStd`, `accelerationRange` | Noise, bias stability and measurement range of the accelerometer channels. |
+| Angular speed | `angularSpeedNoiseDensity`, `angularSpeedBiasStabilityStd`, `angularSpeedRange` | Noise, bias stability and measurement range of the gyroscope channels. |
+| Magnetic field | `magneticNoiseDensity`, `magneticBiasStabilityStd`, `magneticRange` | Noise, bias stability and measurement range of the magnetometer channels, when available. |
+| Attitude angles | `angleStd` | Standard deviation of roll, pitch or course estimates, when provided by the device. |
 
-This project is released under the Apache License 2.0. See the LICENSE file for details.
+The classes also provide helper methods returning standard deviations and variances for the quantities they model.
 
-## **Authors**
+---
 
-The romea_core_imu library was developed by **Jean Laneurit** in the context of various research projects carried out at INRAE.
+## Data frames
 
-## **Contact**
+| Frame | Content |
+| ----- | ------- |
+| `AccelerationsFrame` | Linear acceleration along the IMU x, y and z axes. |
+| `AngularSpeedsFrame` | Angular speed around the IMU x, y and z axes. |
+| `MagneticsFrame` | Magnetic field along the IMU x, y and z axes. |
+| `RollPitchFrame` | Roll and pitch angles. |
+| `RollPitchCourseFrame` | Roll, pitch and course angles. |
 
-If you have any questions or comments about romea_core_imu library, please contact **[Jean Laneurit](mailto:jean.laneurit@inrae.fr)** 
+The frame structures are intentionally small. They are used by higher-level code to carry typed measurements without imposing a transport format.
+
+---
+
+## Algorithms
+
+| Algorithm | Class | Purpose |
+| --------- | ----- | ------- |
+| TRIAD attitude estimation | `TriadAttitude` | Estimate attitude from accelerometer and magnetometer vectors using two non-collinear reference directions. |
+| Zero-velocity detection | `ZeroVelocityEstimator` | Detect stationary periods from acceleration and angular speed variance over a moving time window. |
+| Roll/pitch Kalman estimation | `RollPitchKalmanEstimator` | Estimate roll and pitch from accelerometer and gyroscope data. |
+
+These algorithms are lightweight building blocks. They do not impose a complete inertial navigation pipeline; applications can combine them with their own calibration, filtering and diagnostic logic.
+
+---
+
+## Minimal usage
+
+```cpp
+#include <romea_core_imu/IMU6DOF.hpp>
+#include <romea_core_imu/algorithms/RollPitchKalmanEstimator.hpp>
+
+romea::core::IMU6DOF imu(
+  rate,
+  acceleration_noise_density,
+  acceleration_bias_stability_std,
+  acceleration_range,
+  angular_speed_noise_density,
+  angular_speed_bias_stability_std,
+  angular_speed_range,
+  imu_body_pose);
+
+auto accelerations = imu.createAccelerationsFrame(ax, ay, az);
+auto angular_speeds = imu.createAngularSpeedsFrame(wx, wy, wz);
+
+romea::core::RollPitchKalmanEstimator estimator;
+
+Eigen::Vector3d acceleration_vector(
+  accelerations.accelerationAlongXAxis,
+  accelerations.accelerationAlongYAxis,
+  accelerations.accelerationAlongZAxis);
+
+estimator.init(stamp, acceleration_vector, imu.getAccelerationVariance());
+
+// ...
+// Later, update the estimator with acceleration and angular-speed samples.
+// ...
+```
+
+---
+
+## Related packages
+
+| Package | Role |
+| ------- | ---- |
+| `romea_core_common` | Shared core types used for time, monitoring and common utilities. |
+| `romea_core_localisation_imu` | Builds localisation observations from IMU measurements. |
+
+---
+
+## License
+
+This project is released under the Apache License 2.0. See the `LICENSE` file for details.
+
+## Authors
+
+This library was developed by **Jean Laneurit** in the context of several research projects carried out at INRAE.
