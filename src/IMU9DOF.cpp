@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 // romea
 #include "romea_core_imu/IMU9DOF.hpp"
+
 #include <romea_core_common/signal/Noise.hpp>
 
 namespace romea
@@ -35,7 +35,8 @@ IMU9DOF::IMU9DOF(
   const double & magneticBiasStatibilityStd,
   const double & magneticRange,
   const Eigen::Affine3d & bodyPose)
-: IMU6DOF(rate,
+: IMU6DOF(
+    rate,
     accelerationNoiseDensity,
     accelerationBiasStatibilityStd,
     accelerationRange,
@@ -56,9 +57,7 @@ MagneticsFrame IMU9DOF::createMagneticsFrame(
   const double & magneticAlongYAxis,
   const double & magneticAlongZAxis)
 {
-  Eigen::Vector3d magnetics(magneticAlongXAxis,
-    magneticAlongYAxis,
-    magneticAlongZAxis);
+  Eigen::Vector3d magnetics(magneticAlongXAxis, magneticAlongYAxis, magneticAlongZAxis);
 
   magnetics = rigidTransformation_.rotation() * softIronCompensationMatrix_ * magnetics;
 
@@ -77,8 +76,7 @@ bool IMU9DOF::isMagneticsOutOfRange(const MagneticsFrame & magneticsFrame) const
 double IMU9DOF::getMagneticStd() const
 {
   assert(rate_ > 0);
-  return convertNoiseDensityToNoiseStd(magneticNoiseDenity_, rate_) +
-         magneticBiasStatibilityStd_;
+  return convertNoiseDensityToNoiseStd(magneticNoiseDenity_, rate_) + magneticBiasStatibilityStd_;
 }
 
 //--------------------------------------------------------------------
@@ -89,19 +87,19 @@ double IMU9DOF::getMagneticVariance() const
 }
 
 //--------------------------------------------------------------------
-const double & IMU9DOF::getMagneticNoiseDenity()const
+const double & IMU9DOF::getMagneticNoiseDenity() const
 {
   return magneticNoiseDenity_;
 }
 
 //--------------------------------------------------------------------
-const double & IMU9DOF::getMagneticBiasStatibilityStd()const
+const double & IMU9DOF::getMagneticBiasStatibilityStd() const
 {
   return magneticBiasStatibilityStd_;
 }
 
 //--------------------------------------------------------------------
-const double & IMU9DOF::getMagneticRange()const
+const double & IMU9DOF::getMagneticRange() const
 {
   return magneticRange_;
 }

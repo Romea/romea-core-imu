@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #include "romea_core_imu/IMUAHRS.hpp"
+
 #include <romea_core_common/math/EulerAngles.hpp>
 
 namespace romea
@@ -35,7 +35,8 @@ IMUAHRS::IMUAHRS(
   const double & magneticRange,
   const double & angleStd,
   const Eigen::Affine3d & bodyPose)
-: IMU9DOF(rate,
+: IMU9DOF(
+    rate,
     accelerationNoiseDensity,
     accelerationBiaisStatibilityStd,
     accelerationRange,
@@ -53,22 +54,20 @@ IMUAHRS::IMUAHRS(
 
 //--------------------------------------------------------------------
 RollPitchCourseFrame IMUAHRS::createFrame(
-  const double & rollAngle,
-  const double & pitchAngle,
-  const double & courseAngle)
+  const double & rollAngle, const double & pitchAngle, const double & courseAngle)
 {
   Eigen::Vector3d eulerAngles(rollAngle, pitchAngle, courseAngle);
   eulerAngles = rotation3DToEulerAngles(eulerAnglesToRotation3D(eulerAngles));
 
-// C++11
+  // C++11
   RollPitchCourseFrame frame;
   frame.rollAngle = betweenMinusPiAndPi(eulerAngles.x());
   frame.pitchAngle = betweenMinusPiAndPi(eulerAngles.y());
   frame.courseAngle = eulerAngles.z();
   return frame;
 
-// C++17
-// return {{eulerAngles.x(),eulerAngles.y()},eulerAngles.z()};
+  // C++17
+  // return {{eulerAngles.x(),eulerAngles.y()},eulerAngles.z()};
 }
 
 //--------------------------------------------------------------------

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #ifndef ROMEA_CORE_IMU__ALGORITHMS__ROLLPITCHKALMANESTIMATOR_HPP_
 #define ROMEA_CORE_IMU__ALGORITHMS__ROLLPITCHKALMANESTIMATOR_HPP_
 
@@ -47,11 +46,11 @@ public:
   static double computeRoll(const Eigen::Vector3d & imuAccelerations);
   static double computePitch(const Eigen::Vector3d & imuAccelerations);
 
-  double getRoll()const;
-  double getPitch()const;
-  double getRollVariance()const;
-  double getPitchVariance()const;
-  Eigen::Matrix2d getRollPitchCovariance()const;
+  double getRoll() const;
+  double getPitch() const;
+  double getRollVariance() const;
+  double getPitchVariance() const;
+  Eigen::Matrix2d getRollPitchCovariance() const;
 
   bool isInitialized();
 

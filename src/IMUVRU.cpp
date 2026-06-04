@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #include "romea_core_imu/IMUVRU.hpp"
+
 #include <romea_core_common/math/EulerAngles.hpp>
 
 namespace romea
@@ -32,7 +32,8 @@ IMUVRU::IMUVRU(
   const double & angularSpeedRange,
   const double & angleStd,
   const Eigen::Affine3d & bodyPose)
-: IMU6DOF(rate,
+: IMU6DOF(
+    rate,
     accelerationNoiseDensity,
     accelerationBiasStatibilityStd,
     accelerationRange,
@@ -46,9 +47,7 @@ IMUVRU::IMUVRU(
 }
 
 //--------------------------------------------------------------------
-RollPitchFrame IMUVRU::createFrame(
-  const double & rollAngle,
-  const double & pitchAngle)
+RollPitchFrame IMUVRU::createFrame(const double & rollAngle, const double & pitchAngle)
 {
   Eigen::Vector3d eulerAngles(rollAngle, pitchAngle, 0);
   eulerAngles = rotation3DToEulerAngles(eulerAnglesToRotation3D(eulerAngles));

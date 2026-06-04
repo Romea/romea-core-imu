@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 // romea
 #include "romea_core_imu/algorithms/TriadAlgorithm.hpp"
 
@@ -31,8 +30,7 @@ TriadAttitude::TriadAttitude()
 
 //--------------------------------------------------------------------
 TriadAttitude::TriadAttitude(
-  const Eigen::Vector3d & imuAccelerations,
-  const Eigen::Vector3d & imuMagnetics)
+  const Eigen::Vector3d & imuAccelerations, const Eigen::Vector3d & imuMagnetics)
 : currentAttitude_(Eigen::Matrix3d::Identity()),
   referenceAttitude_(Eigen::Matrix3d::Identity()),
   isInitialized_(true)
@@ -53,18 +51,15 @@ inline void computeAttitude(
 
 //--------------------------------------------------------------------
 void TriadAttitude::init(
-  const Eigen::Vector3d & imuAccelerations,
-  const Eigen::Vector3d & imuMagnetics)
+  const Eigen::Vector3d & imuAccelerations, const Eigen::Vector3d & imuMagnetics)
 {
   computeAttitude(imuAccelerations, imuMagnetics, referenceAttitude_);
   isInitialized_ = true;
 }
 
-
 //--------------------------------------------------------------------
 Eigen::Matrix3d TriadAttitude::compute(
-  const Eigen::Vector3d & imuAccelerations,
-  const Eigen::Vector3d & imuMagnetics)
+  const Eigen::Vector3d & imuAccelerations, const Eigen::Vector3d & imuMagnetics)
 {
   assert(isInitialized_);
   computeAttitude(imuAccelerations, imuMagnetics, currentAttitude_);
@@ -72,7 +67,7 @@ Eigen::Matrix3d TriadAttitude::compute(
 }
 
 //--------------------------------------------------------------------
-bool TriadAttitude::isInitialized()const
+bool TriadAttitude::isInitialized() const
 {
   return isInitialized_;
 }

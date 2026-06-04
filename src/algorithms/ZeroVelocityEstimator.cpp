@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 // std
 #include <cmath>
 #include <iostream>
@@ -32,9 +31,7 @@ namespace core
 
 //-----------------------------------------------------------------------------
 ZeroVelocityEstimator::ZeroVelocityEstimator(
-  const double & imuRate,
-  const double & accelerationSpeedStd,
-  const double & angularSpeedStd)
+  const double & imuRate, const double & accelerationSpeedStd, const double & angularSpeedStd)
 : accelerationVarianceThreshold_(2 * accelerationSpeedStd * accelerationSpeedStd),
   angularSpeedVarianceThreshold_(2 * angularSpeedStd * angularSpeedStd),
   varAccelerationAlongXBodyAxis_(AVERAGE_PRECISION, 2 * imuRate),
@@ -48,13 +45,11 @@ ZeroVelocityEstimator::ZeroVelocityEstimator(
 
 //-----------------------------------------------------------------------------
 void ZeroVelocityEstimator::init(
-  const double & accelerationSpeedStd,
-  const double & angularSpeedStd)
+  const double & accelerationSpeedStd, const double & angularSpeedStd)
 {
   accelerationVarianceThreshold_ = 2 * accelerationSpeedStd * accelerationSpeedStd;
   angularSpeedVarianceThreshold_ = 2 * angularSpeedStd * angularSpeedStd;
 }
-
 
 //-----------------------------------------------------------------------------
 bool ZeroVelocityEstimator::update(
@@ -73,15 +68,15 @@ bool ZeroVelocityEstimator::update(
   varAngularSpeedAroundZBodyAxis_.update(angularSpeedAroundZBodyAxis);
 
   if (varAccelerationAlongXBodyAxis_.isAvailable()) {
-//    std::cout  << varAccelerationAlongXBodyAxis_.getVariance() << " "
-//               << varAccelerationAlongYBodyAxis_.getVariance()  << " "
-//               << varAccelerationAlongZBodyAxis_.getVariance() <<" "
-//               << accelerationVarianceThreshold_ <<std::endl;
+    //    std::cout  << varAccelerationAlongXBodyAxis_.getVariance() << " "
+    //               << varAccelerationAlongYBodyAxis_.getVariance()  << " "
+    //               << varAccelerationAlongZBodyAxis_.getVariance() <<" "
+    //               << accelerationVarianceThreshold_ <<std::endl;
 
-//    std::cout  << varAngularSpeedAroundXBodyAxis_.getVariance() << " "
-//               << varAngularSpeedAroundYBodyAxis_.getVariance()  << " "
-//               << varAngularSpeedAroundZBodyAxis_.getVariance() <<" "
-//               << angularSpeedVarianceThreshold_ <<std::endl;
+    //    std::cout  << varAngularSpeedAroundXBodyAxis_.getVariance() << " "
+    //               << varAngularSpeedAroundYBodyAxis_.getVariance()  << " "
+    //               << varAngularSpeedAroundZBodyAxis_.getVariance() <<" "
+    //               << angularSpeedVarianceThreshold_ <<std::endl;
 
     return varAccelerationAlongXBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
            varAccelerationAlongYBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
@@ -95,27 +90,24 @@ bool ZeroVelocityEstimator::update(
 }
 
 //-----------------------------------------------------------------------------
-double ZeroVelocityEstimator::getAccelerationStd()const
+double ZeroVelocityEstimator::getAccelerationStd() const
 {
   return std::sqrt(
-    varAccelerationAlongXBodyAxis_.getVariance() +
-    varAccelerationAlongYBodyAxis_.getVariance() +
+    varAccelerationAlongXBodyAxis_.getVariance() + varAccelerationAlongYBodyAxis_.getVariance() +
     varAccelerationAlongYBodyAxis_.getVariance());
 }
 
 //-----------------------------------------------------------------------------
-double ZeroVelocityEstimator::getAngularSpeedStd()const
+double ZeroVelocityEstimator::getAngularSpeedStd() const
 {
   return std::sqrt(
-    varAngularSpeedAroundXBodyAxis_.getVariance() +
-    varAngularSpeedAroundXBodyAxis_.getVariance() +
+    varAngularSpeedAroundXBodyAxis_.getVariance() + varAngularSpeedAroundXBodyAxis_.getVariance() +
     varAngularSpeedAroundXBodyAxis_.getVariance());
 }
 
 //-----------------------------------------------------------------------------
 bool ZeroVelocityEstimator::update(
-  const Eigen::Vector3d & accelerationSpeeds,
-  const Eigen::Vector3d & angularSpeeds)
+  const Eigen::Vector3d & accelerationSpeeds, const Eigen::Vector3d & angularSpeeds)
 {
   return update(
     accelerationSpeeds.x(),

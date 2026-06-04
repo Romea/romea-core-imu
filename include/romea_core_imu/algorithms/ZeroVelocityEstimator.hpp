@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #ifndef ROMEA_CORE_IMU__ALGORITHMS__ZEROVELOCITYESTIMATOR_HPP_
 #define ROMEA_CORE_IMU__ALGORITHMS__ZEROVELOCITYESTIMATOR_HPP_
 
@@ -31,14 +30,9 @@ class ZeroVelocityEstimator
 {
 public:
   ZeroVelocityEstimator(
-    const double & imuRate,
-    const double & accelerationSpeedStd,
-    const double & angularSpeedStd);
+    const double & imuRate, const double & accelerationSpeedStd, const double & angularSpeedStd);
 
-  void init(
-    const double & accelerationSpeedStd,
-    const double & angularSpeedStd);
-
+  void init(const double & accelerationSpeedStd, const double & angularSpeedStd);
 
   bool update(
     const double & accelerationAlongXBodyAxis,
@@ -48,13 +42,11 @@ public:
     const double & angularSpeedAroundYBodyAxis,
     const double & angularSpeedAroundZBodyAxis);
 
-  bool update(
-    const Eigen::Vector3d & accelerationSpeeds,
-    const Eigen::Vector3d & angularSpeeds);
+  bool update(const Eigen::Vector3d & accelerationSpeeds, const Eigen::Vector3d & angularSpeeds);
 
-  double getAccelerationStd()const;
+  double getAccelerationStd() const;
 
-  double getAngularSpeedStd()const;
+  double getAngularSpeedStd() const;
 
   void reset();
 

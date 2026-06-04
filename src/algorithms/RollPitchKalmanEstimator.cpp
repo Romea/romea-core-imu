@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 // Eigen
 #include <Eigen/LU>
 
 // romea
 #include <romea_core_common/math/Algorithm.hpp>
 #include <romea_core_common/math/EulerAngles.hpp>
+
 #include "romea_core_imu/algorithms/RollPitchKalmanEstimator.hpp"
 
 namespace romea
@@ -44,7 +44,6 @@ RollPitchKalmanEstimator::RollPitchKalmanEstimator()
   previousDuration_(Duration::zero())
 {
 }
-
 
 //--------------------------------------------------------------------
 void RollPitchKalmanEstimator::init(
@@ -81,17 +80,16 @@ void RollPitchKalmanEstimator::update(
   X_ += F_ * imuAngularSpeeds * dt;
   P_ += F_ * F_.transpose() * imuAngularSpeedsVar * dt * dt;
 
-
   // update
   H_.row(0) << 0, std::cos(pitch);
-  H_.row(1) <<  -std::cos(roll) * std::cos(pitch), std::sin(roll) * std::sin(pitch);
+  H_.row(1) << -std::cos(roll) * std::cos(pitch), std::sin(roll) * std::sin(pitch);
   H_.row(2) << std::sin(roll) * std::cos(pitch), std::cos(roll) * std::sin(pitch);
 
-  Inn_ <<  -std::sin(pitch), std::sin(roll) * std::cos(pitch), std::cos(roll) * std::cos(pitch);
+  Inn_ << -std::sin(pitch), std::sin(roll) * std::cos(pitch), std::cos(roll) * std::cos(pitch);
   Inn_ = imuAccelerations + Inn_ * 9.81;
 
-  InnCov_ = H_ * P_ * H_.transpose() + Eigen::Matrix3d::Identity() *
-    (imuAccelerationsVar + Inn_.squaredNorm());
+  InnCov_ = H_ * P_ * H_.transpose() +
+            Eigen::Matrix3d::Identity() * (imuAccelerationsVar + Inn_.squaredNorm());
 
   K_ = P_ * H_.transpose() * InnCov_.inverse();
   X_ += K_ * Inn_;
@@ -126,35 +124,34 @@ double RollPitchKalmanEstimator::computeRoll(const Eigen::Vector3d & imuAccelera
 double RollPitchKalmanEstimator::computePitch(const Eigen::Vector3d & imuAccelerations)
 {
   double normYZ = std::sqrt(
-    imuAccelerations.y() * imuAccelerations.y() +
-    imuAccelerations.z() * imuAccelerations.z());
+    imuAccelerations.y() * imuAccelerations.y() + imuAccelerations.z() * imuAccelerations.z());
 
   return std::atan2(imuAccelerations.x(), normYZ);
 }
 
 //--------------------------------------------------------------------
-double RollPitchKalmanEstimator::getRoll()const
+double RollPitchKalmanEstimator::getRoll() const
 {
   assert(isInitialized_);
   return X_[0];
 }
 
 //--------------------------------------------------------------------
-double RollPitchKalmanEstimator::getPitch()const
+double RollPitchKalmanEstimator::getPitch() const
 {
   assert(isInitialized_);
   return X_[1];
 }
 
 //--------------------------------------------------------------------
-double RollPitchKalmanEstimator::getRollVariance()const
+double RollPitchKalmanEstimator::getRollVariance() const
 {
   assert(isInitialized_);
   return P_(0, 0);
 }
 
 //--------------------------------------------------------------------
-double RollPitchKalmanEstimator::getPitchVariance()const
+double RollPitchKalmanEstimator::getPitchVariance() const
 {
   assert(isInitialized_);
   return P_(1, 1);

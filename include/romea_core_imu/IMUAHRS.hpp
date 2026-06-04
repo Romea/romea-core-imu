@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #ifndef ROMEA_CORE_IMU__IMUAHRS_HPP_
 #define ROMEA_CORE_IMU__IMUAHRS_HPP_
 
@@ -22,7 +21,6 @@
 // romea
 #include "romea_core_imu/IMU9DOF.hpp"
 #include "romea_core_imu/RollPitchCourseFrame.hpp"
-
 
 namespace romea
 {
@@ -48,9 +46,7 @@ public:
 
 public:
   RollPitchCourseFrame createFrame(
-    const double & rollAngle,
-    const double & pitchAngle,
-    const double & courseAngle);
+    const double & rollAngle, const double & pitchAngle, const double & courseAngle);
 
   double getAngleStd() const;
   double getAngleVariance() const;

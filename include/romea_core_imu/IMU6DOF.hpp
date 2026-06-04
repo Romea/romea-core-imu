@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #ifndef ROMEA_CORE_IMU__IMU6DOF_HPP_
 #define ROMEA_CORE_IMU__IMU6DOF_HPP_
 
@@ -61,17 +60,17 @@ public:
   double getAccelerationStd() const;
   double getAccelerationVariance() const;
   const double & getAccelerationRange() const;
-  const double & getAccelerationNoiseDensity()const;
-  const double & getAccelerationBiasStatibilityStd()const;
+  const double & getAccelerationNoiseDensity() const;
+  const double & getAccelerationBiasStatibilityStd() const;
 
   double getAngularSpeedStd() const;
   double getAngularSpeedVariance() const;
   const double & getAngularSpeedRange() const;
-  const double & getAngularSpeedNoiseDensity()const;
-  const double & getAngularSpeedBiasStatibilityStd()const;
+  const double & getAngularSpeedNoiseDensity() const;
+  const double & getAngularSpeedBiasStatibilityStd() const;
 
   void setBodyPose(const Eigen::Affine3d & rigidTransformation);
-  const Eigen::Affine3d & getBodyPose()const;
+  const Eigen::Affine3d & getBodyPose() const;
 
 protected:
   double rate_;
@@ -90,4 +89,4 @@ protected:
 }  // namespace core
 }  // namespace romea
 
-#endif   // ROMEA_CORE_IMU__IMU6DOF_HPP_
+#endif  // ROMEA_CORE_IMU__IMU6DOF_HPP_

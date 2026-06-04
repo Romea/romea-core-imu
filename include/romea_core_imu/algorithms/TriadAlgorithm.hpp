@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #ifndef ROMEA_CORE_IMU__ALGORITHMS__TRIADALGORITHM_HPP_
 #define ROMEA_CORE_IMU__ALGORITHMS__TRIADALGORITHM_HPP_
 
@@ -29,20 +28,15 @@ class TriadAttitude
 public:
   TriadAttitude();
 
-  TriadAttitude(
-    const Eigen::Vector3d & imuAccelerations,
-    const Eigen::Vector3d & imuMagnetics);
+  TriadAttitude(const Eigen::Vector3d & imuAccelerations, const Eigen::Vector3d & imuMagnetics);
 
 public:
-  void init(
-    const Eigen::Vector3d & imuAccelerations,
-    const Eigen::Vector3d & imuMagnetics);
+  void init(const Eigen::Vector3d & imuAccelerations, const Eigen::Vector3d & imuMagnetics);
 
   Eigen::Matrix3d compute(
-    const Eigen::Vector3d & imuAccelerations,
-    const Eigen::Vector3d & imuMagnetics);
+    const Eigen::Vector3d & imuAccelerations, const Eigen::Vector3d & imuMagnetics);
 
-  bool isInitialized()const;
+  bool isInitialized() const;
 
 private:
   Eigen::Matrix3d currentAttitude_;

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #ifndef ROMEA_CORE_IMU__IMUVRU_HPP_
 #define ROMEA_CORE_IMU__IMUVRU_HPP_
 
@@ -43,10 +42,7 @@ public:
     const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
 public:
-  RollPitchFrame createFrame(
-    const double & rollAngle,
-    const double & pitchAngle);
-
+  RollPitchFrame createFrame(const double & rollAngle, const double & pitchAngle);
 
   double getAngleStd() const;
   double getAngleVariance() const;

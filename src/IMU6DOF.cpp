@@ -12,16 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 // romea
 #include "romea_core_imu/IMU6DOF.hpp"
+
 #include <romea_core_common/signal/Noise.hpp>
 
 namespace romea
 {
 namespace core
 {
-
 
 //--------------------------------------------------------------------
 IMU6DOF::IMU6DOF(
@@ -44,16 +43,14 @@ IMU6DOF::IMU6DOF(
 {
 }
 
-
 //--------------------------------------------------------------------
 AccelerationsFrame IMU6DOF::createAccelerationsFrame(
   const double & accelerationAlongXAxis,
   const double & accelerationAlongYAxis,
   const double & accelerationAlongZAxis)
 {
-  Eigen::Vector3d accelerations(accelerationAlongXAxis,
-    accelerationAlongYAxis,
-    accelerationAlongZAxis);
+  Eigen::Vector3d accelerations(
+    accelerationAlongXAxis, accelerationAlongYAxis, accelerationAlongZAxis);
 
   accelerations = rigidTransformation_.rotation() * accelerations;
 
@@ -66,15 +63,13 @@ AngularSpeedsFrame IMU6DOF::createAngularSpeedsFrame(
   const double & angularSpeedAroundYAxis,
   const double & angularSpeedAroundZAxis)
 {
-  Eigen::Vector3d angularSpeeds(angularSpeedAroundXAxis,
-    angularSpeedAroundYAxis,
-    angularSpeedAroundZAxis);
+  Eigen::Vector3d angularSpeeds(
+    angularSpeedAroundXAxis, angularSpeedAroundYAxis, angularSpeedAroundZAxis);
 
   angularSpeeds = rigidTransformation_.rotation() * angularSpeeds;
 
   return {angularSpeeds.x(), angularSpeeds.y(), angularSpeeds.z()};
 }
-
 
 //--------------------------------------------------------------------
 const double & IMU6DOF::getRate() const
@@ -126,7 +121,7 @@ const double & IMU6DOF::getAngularSpeedRange() const
 }
 
 //--------------------------------------------------------------------
-const double & IMU6DOF::getAccelerationNoiseDensity()const
+const double & IMU6DOF::getAccelerationNoiseDensity() const
 {
   return accelerationNoiseDensity_;
 }
@@ -156,7 +151,7 @@ void IMU6DOF::setBodyPose(const Eigen::Affine3d & rigidTransformation)
 }
 
 //--------------------------------------------------------------------
-const Eigen::Affine3d & IMU6DOF::getBodyPose()const
+const Eigen::Affine3d & IMU6DOF::getBodyPose() const
 {
   return rigidTransformation_;
 }
