@@ -33,13 +33,13 @@ public:
   IMUAHRS(
     const double & rate,
     const double & accelerationNoiseDensity,
-    const double & accelerationBiaisStatibilityStd,
+    const double & accelerationBiasStabilityStd,
     const double & accelerationRange,
     const double & angularSpeedNoiseDensity,
-    const double & angularSpeedBiaisStatibilityStd,
+    const double & angularSpeedBiasStabilityStd,
     const double & angularSpeedRange,
-    const double & magneticNoiseDenity,
-    const double & magneticBiaisStatibilityStd,
+    const double & magneticNoiseDensity,
+    const double & magneticBiasStabilityStd,
     const double & magneticRange,
     const double & angleStd,
     const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());

@@ -13,8 +13,8 @@
 // limitations under the License.
 
 // std
+#include <algorithm>
 #include <cmath>
-#include <iostream>
 
 // romea
 #include "romea_core_imu/algorithms/ZeroVelocityEstimator.hpp"
@@ -68,16 +68,6 @@ bool ZeroVelocityEstimator::update(
   varAngularSpeedAroundZBodyAxis_.update(angularSpeedAroundZBodyAxis);
 
   if (varAccelerationAlongXBodyAxis_.isAvailable()) {
-    //    std::cout  << varAccelerationAlongXBodyAxis_.getVariance() << " "
-    //               << varAccelerationAlongYBodyAxis_.getVariance()  << " "
-    //               << varAccelerationAlongZBodyAxis_.getVariance() <<" "
-    //               << accelerationVarianceThreshold_ <<std::endl;
-
-    //    std::cout  << varAngularSpeedAroundXBodyAxis_.getVariance() << " "
-    //               << varAngularSpeedAroundYBodyAxis_.getVariance()  << " "
-    //               << varAngularSpeedAroundZBodyAxis_.getVariance() <<" "
-    //               << angularSpeedVarianceThreshold_ <<std::endl;
-
     return varAccelerationAlongXBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
            varAccelerationAlongYBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
            varAccelerationAlongZBodyAxis_.getVariance() < accelerationVarianceThreshold_ &&
@@ -92,17 +82,19 @@ bool ZeroVelocityEstimator::update(
 //-----------------------------------------------------------------------------
 double ZeroVelocityEstimator::getAccelerationStd() const
 {
-  return std::sqrt(
-    varAccelerationAlongXBodyAxis_.getVariance() + varAccelerationAlongYBodyAxis_.getVariance() +
-    varAccelerationAlongYBodyAxis_.getVariance());
+  const double variance = varAccelerationAlongXBodyAxis_.getVariance() +
+                          varAccelerationAlongYBodyAxis_.getVariance() +
+                          varAccelerationAlongZBodyAxis_.getVariance();
+  return std::sqrt(std::max(0., variance));
 }
 
 //-----------------------------------------------------------------------------
 double ZeroVelocityEstimator::getAngularSpeedStd() const
 {
-  return std::sqrt(
-    varAngularSpeedAroundXBodyAxis_.getVariance() + varAngularSpeedAroundXBodyAxis_.getVariance() +
-    varAngularSpeedAroundXBodyAxis_.getVariance());
+  const double variance = varAngularSpeedAroundXBodyAxis_.getVariance() +
+                          varAngularSpeedAroundYBodyAxis_.getVariance() +
+                          varAngularSpeedAroundZBodyAxis_.getVariance();
+  return std::sqrt(std::max(0., variance));
 }
 
 //-----------------------------------------------------------------------------

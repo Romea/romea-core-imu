@@ -33,10 +33,10 @@ public:
   IMUVRU(
     const double & rate,
     const double & accelerationNoiseDensity,
-    const double & accelerationBiasStatibilityStd,
+    const double & accelerationBiasStabilityStd,
     const double & accelerationRange,
     const double & angularSpeedNoiseDensity,
-    const double & angularSpeedBiasStatibilityStd,
+    const double & angularSpeedBiasStabilityStd,
     const double & angularSpeedRange,
     const double & angleStd,
     const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());

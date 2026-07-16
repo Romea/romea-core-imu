@@ -26,26 +26,26 @@ namespace core
 IMU9DOF::IMU9DOF(
   const double & rate,
   const double & accelerationNoiseDensity,
-  const double & accelerationBiasStatibilityStd,
+  const double & accelerationBiasStabilityStd,
   const double & accelerationRange,
   const double & angularSpeedNoiseDensity,
-  const double & angularSpeedBiasStatibilityStd,
+  const double & angularSpeedBiasStabilityStd,
   const double & angularSpeedRange,
   const double & magneticNoiseDensity,
-  const double & magneticBiasStatibilityStd,
+  const double & magneticBiasStabilityStd,
   const double & magneticRange,
   const Eigen::Affine3d & bodyPose)
 : IMU6DOF(
     rate,
     accelerationNoiseDensity,
-    accelerationBiasStatibilityStd,
+    accelerationBiasStabilityStd,
     accelerationRange,
     angularSpeedNoiseDensity,
-    angularSpeedBiasStatibilityStd,
+    angularSpeedBiasStabilityStd,
     angularSpeedRange,
     bodyPose),
-  magneticNoiseDenity_(magneticNoiseDensity),
-  magneticBiasStatibilityStd_(magneticBiasStatibilityStd),
+  magneticNoiseDensity_(magneticNoiseDensity),
+  magneticBiasStabilityStd_(magneticBiasStabilityStd),
   magneticRange_(magneticRange),
   softIronCompensationMatrix_(Eigen::Affine3d::Identity())
 {
@@ -76,7 +76,7 @@ bool IMU9DOF::isMagneticsOutOfRange(const MagneticsFrame & magneticsFrame) const
 double IMU9DOF::getMagneticStd() const
 {
   assert(rate_ > 0);
-  return convertNoiseDensityToNoiseStd(magneticNoiseDenity_, rate_) + magneticBiasStatibilityStd_;
+  return convertNoiseDensityToNoiseStd(magneticNoiseDensity_, rate_) + magneticBiasStabilityStd_;
 }
 
 //--------------------------------------------------------------------
@@ -87,15 +87,15 @@ double IMU9DOF::getMagneticVariance() const
 }
 
 //--------------------------------------------------------------------
-const double & IMU9DOF::getMagneticNoiseDenity() const
+const double & IMU9DOF::getMagneticNoiseDensity() const
 {
-  return magneticNoiseDenity_;
+  return magneticNoiseDensity_;
 }
 
 //--------------------------------------------------------------------
-const double & IMU9DOF::getMagneticBiasStatibilityStd() const
+const double & IMU9DOF::getMagneticBiasStabilityStd() const
 {
-  return magneticBiasStatibilityStd_;
+  return magneticBiasStabilityStd_;
 }
 
 //--------------------------------------------------------------------

@@ -26,18 +26,18 @@ namespace core
 IMU6DOF::IMU6DOF(
   const double & rate,
   const double & accelerationNoiseDensity,
-  const double & accelerationBiasStatibilityStd,
+  const double & accelerationBiasStabilityStd,
   const double & accelerationRange,
   const double & angularSpeedNoiseDensity,
-  const double & angularSpeedBiasStatibilityStd,
+  const double & angularSpeedBiasStabilityStd,
   const double & angularSpeedRange,
   const Eigen::Affine3d & bodyPose)
 : rate_(rate),
   accelerationNoiseDensity_(accelerationNoiseDensity),
-  accelerationBiasStatibilityStd_(accelerationBiasStatibilityStd),
+  accelerationBiasStabilityStd_(accelerationBiasStabilityStd),
   accelerationRange_(accelerationRange),
   angularSpeedNoiseDensity_(angularSpeedNoiseDensity),
-  angularSpeedBiasStatibilityStd_(angularSpeedBiasStatibilityStd),
+  angularSpeedBiasStabilityStd_(angularSpeedBiasStabilityStd),
   angularSpeedRange_(angularSpeedRange),
   rigidTransformation_(bodyPose)
 {
@@ -83,7 +83,7 @@ double IMU6DOF::getAccelerationStd() const
 {
   assert(rate_ > 0);
   return convertNoiseDensityToNoiseStd(accelerationNoiseDensity_, rate_) +
-         accelerationBiasStatibilityStd_;
+         accelerationBiasStabilityStd_;
 }
 
 //--------------------------------------------------------------------
@@ -104,7 +104,7 @@ double IMU6DOF::getAngularSpeedStd() const
 {
   assert(rate_ > 0);
   return convertNoiseDensityToNoiseStd(angularSpeedNoiseDensity_, rate_) +
-         angularSpeedBiasStatibilityStd_;
+         angularSpeedBiasStabilityStd_;
 }
 
 //--------------------------------------------------------------------
@@ -127,9 +127,9 @@ const double & IMU6DOF::getAccelerationNoiseDensity() const
 }
 
 //--------------------------------------------------------------------
-const double & IMU6DOF::getAccelerationBiasStatibilityStd() const
+const double & IMU6DOF::getAccelerationBiasStabilityStd() const
 {
-  return accelerationBiasStatibilityStd_;
+  return accelerationBiasStabilityStd_;
 }
 
 //--------------------------------------------------------------------
@@ -139,9 +139,9 @@ const double & IMU6DOF::getAngularSpeedNoiseDensity() const
 }
 
 //--------------------------------------------------------------------
-const double & IMU6DOF::getAngularSpeedBiasStatibilityStd() const
+const double & IMU6DOF::getAngularSpeedBiasStabilityStd() const
 {
-  return angularSpeedBiasStatibilityStd_;
+  return angularSpeedBiasStabilityStd_;
 }
 
 //--------------------------------------------------------------------

@@ -25,20 +25,20 @@ namespace core
 IMUVRU::IMUVRU(
   const double & rate,
   const double & accelerationNoiseDensity,
-  const double & accelerationBiasStatibilityStd,
+  const double & accelerationBiasStabilityStd,
   const double & accelerationRange,
   const double & angularSpeedNoiseDensity,
-  const double & angularSpeedBiasStatibilityStd,
+  const double & angularSpeedBiasStabilityStd,
   const double & angularSpeedRange,
   const double & angleStd,
   const Eigen::Affine3d & bodyPose)
 : IMU6DOF(
     rate,
     accelerationNoiseDensity,
-    accelerationBiasStatibilityStd,
+    accelerationBiasStabilityStd,
     accelerationRange,
     angularSpeedNoiseDensity,
-    angularSpeedBiasStatibilityStd,
+    angularSpeedBiasStabilityStd,
     angularSpeedRange,
     bodyPose),
   angleStd_(angleStd),
@@ -51,7 +51,7 @@ RollPitchFrame IMUVRU::createFrame(const double & rollAngle, const double & pitc
 {
   Eigen::Vector3d eulerAngles(rollAngle, pitchAngle, 0);
   eulerAngles = rotation3DToEulerAngles(eulerAnglesToRotation3D(eulerAngles));
-  return {eulerAngles.x(), eulerAngles.y()};
+  return {betweenMinusPiAndPi(eulerAngles.x()), betweenMinusPiAndPi(eulerAngles.y())};
 }
 
 //--------------------------------------------------------------------

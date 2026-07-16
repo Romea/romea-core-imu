@@ -33,13 +33,13 @@ public:
   IMU9DOF(
     const double & rate,
     const double & accelerationNoiseDensity,
-    const double & accelerationBiaisStatibilityStd,
+    const double & accelerationBiasStabilityStd,
     const double & accelerationRange,
     const double & angularSpeedNoiseDensity,
-    const double & angularSpeedBiaisStatibilityStd,
+    const double & angularSpeedBiasStabilityStd,
     const double & angularSpeedRange,
-    const double & magneticNoiseDenity,
-    const double & magneticBiaisStatibilityStd,
+    const double & magneticNoiseDensity,
+    const double & magneticBiasStabilityStd,
     const double & magneticRange,
     const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
@@ -57,15 +57,15 @@ public:
   double getMagneticStd() const;
   double getMagneticVariance() const;
   const double & getMagneticRange() const;
-  const double & getMagneticNoiseDenity() const;
-  const double & getMagneticBiasStatibilityStd() const;
+  const double & getMagneticNoiseDensity() const;
+  const double & getMagneticBiasStabilityStd() const;
 
   void setSoftIronCompensationMatrix(const Eigen::Affine3d & matrix);
   const Eigen::Affine3d & getSoftIronCompensationMatrix() const;
 
 private:
-  double magneticNoiseDenity_;
-  double magneticBiasStatibilityStd_;
+  double magneticNoiseDensity_;
+  double magneticBiasStabilityStd_;
   double magneticRange_;
 
   Eigen::Affine3d softIronCompensationMatrix_;

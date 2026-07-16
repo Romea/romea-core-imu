@@ -34,10 +34,10 @@ public:
   IMU6DOF(
     const double & rate,
     const double & accelerationNoiseDensity,
-    const double & accelerationBiasStatibilityStd,
+    const double & accelerationBiasStabilityStd,
     const double & accelerationRange,
     const double & angularSpeedNoiseDensity,
-    const double & angularSpeedBiasStatibilityStd,
+    const double & angularSpeedBiasStabilityStd,
     const double & angularSpeedRange,
     const Eigen::Affine3d & bodyPose = Eigen::Affine3d::Identity());
 
@@ -61,13 +61,13 @@ public:
   double getAccelerationVariance() const;
   const double & getAccelerationRange() const;
   const double & getAccelerationNoiseDensity() const;
-  const double & getAccelerationBiasStatibilityStd() const;
+  const double & getAccelerationBiasStabilityStd() const;
 
   double getAngularSpeedStd() const;
   double getAngularSpeedVariance() const;
   const double & getAngularSpeedRange() const;
   const double & getAngularSpeedNoiseDensity() const;
-  const double & getAngularSpeedBiasStatibilityStd() const;
+  const double & getAngularSpeedBiasStabilityStd() const;
 
   void setBodyPose(const Eigen::Affine3d & rigidTransformation);
   const Eigen::Affine3d & getBodyPose() const;
@@ -76,11 +76,11 @@ protected:
   double rate_;
 
   double accelerationNoiseDensity_;
-  double accelerationBiasStatibilityStd_;
+  double accelerationBiasStabilityStd_;
   double accelerationRange_;
 
   double angularSpeedNoiseDensity_;
-  double angularSpeedBiasStatibilityStd_;
+  double angularSpeedBiasStabilityStd_;
   double angularSpeedRange_;
 
   Eigen::Affine3d rigidTransformation_;

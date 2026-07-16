@@ -15,10 +15,36 @@
 // romea
 #include "romea_core_imu/algorithms/TriadAlgorithm.hpp"
 
+// std
+#include <limits>
+#include <stdexcept>
+
 namespace romea
 {
 namespace core
 {
+
+namespace
+{
+
+void throwIfInvalidTriadInput(
+  const Eigen::Vector3d & imuAccelerations, const Eigen::Vector3d & imuMagnetics)
+{
+  if (imuAccelerations.squaredNorm() <= std::numeric_limits<double>::epsilon()) {
+    throw std::invalid_argument("Cannot compute TRIAD attitude with null accelerations.");
+  }
+
+  if (imuMagnetics.squaredNorm() <= std::numeric_limits<double>::epsilon()) {
+    throw std::invalid_argument("Cannot compute TRIAD attitude with null magnetics.");
+  }
+
+  if (
+    imuAccelerations.cross(imuMagnetics).squaredNorm() <= std::numeric_limits<double>::epsilon()) {
+    throw std::invalid_argument("Cannot compute TRIAD attitude with collinear vectors.");
+  }
+}
+
+}  // namespace
 
 //--------------------------------------------------------------------
 TriadAttitude::TriadAttitude()
@@ -44,6 +70,8 @@ inline void computeAttitude(
   const Eigen::Vector3d & imuMagnetics,
   Eigen::Matrix3d & R)
 {
+  throwIfInvalidTriadInput(imuAccelerations, imuMagnetics);
+
   R.col(2) = imuAccelerations.normalized();
   R.col(1) = (imuAccelerations.cross(imuMagnetics)).normalized();
   R.col(0) = (R.col(1)).cross(R.col(2));
